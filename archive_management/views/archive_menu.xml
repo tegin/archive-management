@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="archive_root"
+              name="Archive"
+              sequence="80"
+              groups="archive_management.group_archive_viewer"
+              web_icon="archive_management,static/description/icon.png"
+    />
+
+    <menuitem id="archive_configuration"
+              name="Configuration"
+              sequence="90"
+              groups="archive_management.group_archive_manager"
+              parent="archive_root"
+    />
+
+</odoo>
