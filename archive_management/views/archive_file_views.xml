@@ -8,9 +8,9 @@
 
 <odoo>
 
-    <record model="ir.ui.view" id="archive_document_tree">
-        <field name="name">archive.document.tree</field>
-        <field name="model">archive.document</field>
+    <record model="ir.ui.view" id="archive_file_tree">
+        <field name="name">archive.file.tree</field>
+        <field name="model">archive.file</field>
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <tree create="0">
@@ -19,9 +19,9 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="archive_document_form">
-        <field name="name">archive.document.form</field>
-        <field name="model">archive.document</field>
+    <record model="ir.ui.view" id="archive_file_form">
+        <field name="name">archive.file.form</field>
+        <field name="model">archive.file</field>
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <form string="Repository" create="0">
@@ -34,7 +34,7 @@
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
-                        <button name="%(archive_document_transfer_wizard_action)s"
+                        <button name="%(archive_file_transfer_wizard_action)s"
                                 type="action"
                                 class="oe_stat_button" icon="fa-folder-open"
                                 string="Move to a storage"
@@ -42,7 +42,7 @@
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
-                        <button name="%(archive_document_transfer_wizard_action)s"
+                        <button name="%(archive_file_transfer_wizard_action)s"
                                 type="action"
                                 class="oe_stat_button" icon="fa-user-circle"
                                 string="Give to a Partner"
@@ -70,18 +70,18 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="archive_document_action">
-        <field name="name">Documents</field>
+    <record model="ir.actions.act_window" id="archive_file_action">
+        <field name="name">Files</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">archive.document</field>
+        <field name="res_model">archive.file</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem
-            id="archive_document_menu"
+            id="archive_file_menu"
             parent="archive_root"
-            action="archive_document_action"
+            action="archive_file_action"
             sequence="10"/>
 
 

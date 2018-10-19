@@ -9,9 +9,9 @@
 <odoo>
 
 
-    <record model="ir.ui.view" id="archive_document_add_form">
-        <field name="name">archive.document.add.form</field>
-        <field name="model">archive.document.add</field>
+    <record model="ir.ui.view" id="archive_file_add_form">
+        <field name="name">archive.file.add.form</field>
+        <field name="model">archive.file.add</field>
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <form string="Move">
@@ -33,10 +33,10 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="archive_document_add_action">
-        <field name="name">Document Add</field>
+    <record model="ir.actions.act_window" id="archive_file_add_action">
+        <field name="name">File Add</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">archive.document.add</field>
+        <field name="res_model">archive.file.add</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

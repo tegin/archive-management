@@ -1,17 +1,17 @@
 from odoo import api, fields, models
 
 
-class ArchiveDocumentTransferWizard(models.TransientModel):
-    _name = 'archive.document.transfer.wizard'
+class ArchiveFileTransferWizard(models.TransientModel):
+    _name = 'archive.file.transfer.wizard'
 
-    document_id = fields.Many2one(
-        'archive.document',
+    file_id = fields.Many2one(
+        'archive.file',
         required=True,
         readonly=True,
     )
     repository_id = fields.Many2one(
         'archive.repository',
-        related='document_id.repository_id',
+        related='file_id.repository_id',
         readonly=True
     )
     transfer_type = fields.Selection([
@@ -34,17 +34,17 @@ class ArchiveDocumentTransferWizard(models.TransientModel):
 
     def _transfer_vals(self):
         return {
-            'document_id': self.document_id.id,
-            'src_storage_id': self.document_id.storage_id.id or False,
-            'src_partner_id': self.document_id.partner_id.id or False,
+            'file_id': self.file_id.id,
+            'src_storage_id': self.file_id.storage_id.id or False,
+            'src_partner_id': self.file_id.partner_id.id or False,
             'dest_storage_id': self.dest_storage_id.id or False,
             'dest_partner_id': self.dest_partner_id.id or False,
         }
 
     def _run(self):
-        transfer = self.env['archive.document.transfer'].create(
+        transfer = self.env['archive.file.transfer'].create(
             self._transfer_vals())
-        self.document_id._transfer(transfer)
+        self.file_id._transfer(transfer)
         return transfer
 
     def run(self):

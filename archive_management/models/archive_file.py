@@ -2,8 +2,8 @@ from odoo import api, fields, models, _
 from odoo.exceptions import ValidationError
 
 
-class ArchiveDocument(models.Model):
-    _name = 'archive.document'
+class ArchiveFile(models.Model):
+    _name = 'archive.file'
 
     name = fields.Char(
         required=True,
@@ -14,12 +14,12 @@ class ArchiveDocument(models.Model):
     model = fields.Char(required=True, readonly=True)
     res_id = fields.Integer(required=True, readonly=True)
     parent_ids = fields.One2many(
-        'archive.document.storage',
-        inverse_name='document_id',
+        'archive.file.storage',
+        inverse_name='file_id',
         readonly=True,
     )
     parent_id = fields.Many2one(
-        'archive.document.storage',
+        'archive.file.storage',
         compute='_compute_parent',
         store=True,
         readonly=True,
@@ -45,7 +45,7 @@ class ArchiveDocument(models.Model):
     _sql_constraints = [
         ('repository_record',
          'unique(repository_id, model, res_id)',
-         _('Document must be unique for a record and repository'))]
+         _('File must be unique for a record and repository'))]
 
     @api.depends('parent_ids')
     def _compute_parent(self):
@@ -62,13 +62,13 @@ class ArchiveDocument(models.Model):
 
     def default_archive_name(self, vals):
         return self.env['ir.sequence'].next_by_code(
-            'archive.document') or '/'
+            'archive.file') or '/'
 
     def _transfer(self, transfer):
         self.parent_id.close(transfer)
         if transfer:
-            self.env['archive.document.storage'].create({
-                'document_id': self.id,
+            self.env['archive.file.storage'].create({
+                'file_id': self.id,
                 'transfer_id': transfer.id,
             })
 
@@ -90,11 +90,11 @@ class ArchiveDocument(models.Model):
         return super().create(vals)
 
 
-class ArchiveDocumentStorage(models.Model):
-    _name = 'archive.document.storage'
+class ArchiveFileStorage(models.Model):
+    _name = 'archive.file.storage'
 
-    document_id = fields.Many2one(
-        'archive.document',
+    file_id = fields.Many2one(
+        'archive.file',
         required=True,
         readonly=True,
     )
@@ -113,32 +113,32 @@ class ArchiveDocumentStorage(models.Model):
         default=lambda r: fields.Datetime.now()
     )
     transfer_id = fields.Many2one(
-        'archive.document.transfer',
+        'archive.file.transfer',
         readonly=True,
     )
     end_transfer_id = fields.Many2one(
-        'archive.document.transfer',
+        'archive.file.transfer',
         readonly=True,
     )
     end_date = fields.Datetime(readonly=True)
 
-    @api.constrains('document_id', 'transfer_id')
+    @api.constrains('file_id', 'transfer_id')
     def _check_transfer(self):
         for rec in self.filtered(lambda r: r.transfer_id):
-            if rec.transfer_id.document_id != rec.document_id:
+            if rec.transfer_id.file_id != rec.file_id:
                 raise ValidationError(_(
-                    'Document of the transfer must coincide'))
+                    'File of the transfer must coincide'))
 
-    @api.constrains('document_id', 'end_transfer_id')
+    @api.constrains('file_id', 'end_transfer_id')
     def _check_end_transfer(self):
         if self.filtered(
             lambda r: r.end_transfer_id
-            and r.end_transfer_id.document_id != r.document_id
+            and r.end_transfer_id.file_id != r.file_id
         ):
             raise ValidationError(_(
-                'Document of the ending transfer must coincide'))
+                'File of the ending transfer must coincide'))
 
-    @api.constrains('document_id', 'transfer_id', 'end_transfer_id')
+    @api.constrains('file_id', 'transfer_id', 'end_transfer_id')
     def _check_transfer_end_transfer(self):
         for rec in self.filtered(
             lambda r: r.end_transfer_id and r.transfer_id

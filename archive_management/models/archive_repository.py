@@ -8,8 +8,8 @@ class ArchiveRepository(models.Model):
     name = fields.Char(
         required=True,
     )
-    file_ids = fields.One2many(
-        'archive.file',
+    storage_ids = fields.One2many(
+        'archive.storage',
         inverse_name='repository_id',
         readonly=True,
     )
@@ -23,8 +23,8 @@ class ArchiveRepository(models.Model):
     @api.multi
     def toggle_active(self):
         for repository in self.filtered(lambda r: r.active):
-            if repository.file_ids.filtered(lambda r: r.active):
+            if repository.storage_ids.filtered(lambda r: r.active):
                 raise ValidationError(_(
-                    'Repositories should have no files in order to be archived'
+                    'Repositories should have no storages in order to be archived'
                 ))
         return super().toggle_active()
