@@ -8,6 +8,23 @@ class TestArchiveManagementSystem(TransactionCase):
         self.repo = self.env['archive.repository'].create({
             'name': 'Repo',
             'model_ids': [(4, self.browse_ref('base.model_res_partner').id)],
+            'level_max_difference': 2,
+        })
+        self.level_01 = self.env['archive.repository.level'].create({
+            'name': 'Subseries',
+            'level': 1,
+            'can_assign_files': True,
+            'repository_id': self.repo.id,
+        })
+        self.level_02 = self.env['archive.repository.level'].create({
+            'name': 'Series',
+            'level': 2,
+            'repository_id': self.repo.id,
+        })
+        self.level_03 = self.env['archive.repository.level'].create({
+            'name': 'Box',
+            'level': 3,
+            'repository_id': self.repo.id,
         })
         self.location_01 = self.env['archive.location'].create({
             'description': 'LOC1'
@@ -16,13 +33,13 @@ class TestArchiveManagementSystem(TransactionCase):
             'description': 'LOC2'
         })
         self.storage_01 = self.env['archive.storage'].create({
-            'repository_id': self.repo.id,
+            'repository_level_id': self.level_01.id,
         })
         self.storage_02 = self.env['archive.storage'].create({
-            'repository_id': self.repo.id,
+            'repository_level_id': self.level_01.id,
         })
         self.storage_03 = self.env['archive.storage'].create({
-            'repository_id': self.repo.id,
+            'repository_level_id': self.level_01.id,
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Partner'
@@ -148,17 +165,20 @@ class TestArchiveManagementSystem(TransactionCase):
     def test_recursion(self):
         storage = self.storage_01
         new_storage = self.env['archive.storage'].create({
-            'repository_id': self.repo.id,
+            'repository_level_id': self.level_01.id,
         })
         for i in range(1, 10):
-            self.env['archive.storage.transfer.wizard'].create({
+            wizard = self.env['archive.storage.transfer.wizard'].create({
                 'transfer_type': 'storage',
                 'storage_id': storage.id,
                 'dest_storage_id': new_storage.id,
-            }).run()
+            })
+            self.assertEqual(wizard.min_level, 2)
+            self.assertEqual(wizard.max_level, 3)
+            wizard.run()
             storage = new_storage
             new_storage = self.env['archive.storage'].create({
-                'repository_id': self.repo.id,
+                'repository_level_id': self.level_01.id,
             })
         with self.assertRaises(ValidationError):
             self.env['archive.storage.transfer.wizard'].create({
