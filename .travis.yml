@@ -1,36 +1,22 @@
-language: python
 sudo: false
-cache:
-  apt: true
-  directories:
-    - $HOME/.cache/pip
-
-python:
-- "3.5"
+cache: pip
 
 addons:
   apt:
     packages:
       - expect-dev  # provides unbuffer utility
-      - python-lxml  # because pip installation is slow
-      # needed because server-tools is loaded in the dependency chain
-      - unixodbc-dev
-      - python-mysqldb
-      - libxmlsec1-dev
-      - libxml2-dev
-      - libxmlsec1-openssl
-      - openssl
-      - python-simplejson
-      - python-serial
-      - python-yaml
-      - cups
-      - libcups2-dev
+      - python-lxml # because pip installation is slow
+
+language: python
+
+python:
+  - "3.5"
 
 env:
   global:
   - VERSION="11.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
   - TRANSIFEX_USER='transbot@odoo-community.org'
-  - secure: IW7Ye7lQc6C05kMKBmYmL7JT+JULtwwcKpd1SYl9UVcfkgfF16s8t+aGcweCCHy19OWwrjDiW9kyeSeCh4MIyvTNY9+qna6FNRCZ6u+GoAWL8pLpaLZPOMVl+MS+ckADr0OzvEsCVLS7N8FlYmIbVagKpwfrXk6Pbfxcfn21LNc=
+  - secure: HBPdm9kIvz1Ja+r5cZdn7EuvCzZLHy102p9MEfG/9L96NwDdhOjbJGftvrtn0eRkbEO4Lb15J6ZMwm/qlwIz6uCme/NbfkFutDPjnpIucxoNt0y99KJHRPAD1untGA8IkgRlspve4DL7Yxi+lb9xTaILjtJ4hTO2CGHFyY6MpLo=
 
   matrix:
   - LINT_CHECK="1"
@@ -40,12 +26,9 @@ env:
 
 
 install:
-  - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
+  - git clone https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
-  - pip install pycups==1.9.73
-  - pip install PyPDF2==1.18
-  - pip install requests
 
 script:
   - travis_run_tests
