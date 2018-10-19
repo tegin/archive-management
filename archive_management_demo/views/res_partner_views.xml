@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+<record id="view_partner_form" model="ir.ui.view">
+    <field name="name">res.partner.form</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+        <field name="is_company" position="after">
+            <field name="pending_archive_file" invisible="1"/>
+        </field>
+        <xpath expr="//div[@name='button_box']" position="inside">
+            <button name="action_add_file"
+                    type="object"
+                    string="Add file"
+                    attrs="{'invisible': [('pending_archive_file', '=', False)]}"
+                    icon="fa-file"
+            />
+            <button name="action_view_files"
+                    type="object"
+                    attrs="{'invisible': [('file_count', '=', 0)]}"
+                    icon="fa-file"
+            >
+                <field name="file_count" string="Files" widget="statinfo"/>
+            </button>
+        </xpath>
+    </field>
+</record>
+</odoo>
