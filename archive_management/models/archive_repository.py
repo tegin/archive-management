@@ -25,6 +25,7 @@ class ArchiveRepository(models.Model):
         for repository in self.filtered(lambda r: r.active):
             if repository.storage_ids.filtered(lambda r: r.active):
                 raise ValidationError(_(
-                    'Repositories should have no storages in order to be archived'
+                    'Repositories should have no storages in order '
+                    'to be archived'
                 ))
         return super().toggle_active()

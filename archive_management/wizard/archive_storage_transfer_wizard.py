@@ -4,7 +4,11 @@ from odoo import api, fields, models
 class ArchiveStorageTransferWizard(models.TransientModel):
     _name = 'archive.storage.transfer.wizard'
 
-    storage_id = fields.Many2one('archive.storage', required=True, readonly=True)
+    storage_id = fields.Many2one(
+        'archive.storage',
+        required=True,
+        readonly=True
+    )
     repository_id = fields.Many2one(
         'archive.repository',
         related='storage_id.repository_id',

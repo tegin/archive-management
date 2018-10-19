@@ -213,7 +213,8 @@ class ArchiveStorageParent(models.Model):
     def _check_transfer(self):
         for rec in self.filtered(lambda r: r.transfer_id):
             if rec.transfer_id.storage_id != rec.child_id:
-                raise ValidationError(_('storage of the transfer must coincide'))
+                raise ValidationError(_(
+                    'Storage of the transfer must coincide'))
 
     @api.constrains('child_id', 'transfer_id', 'end_transfer_id')
     def _check_end_transfer(self):
@@ -224,7 +225,7 @@ class ArchiveStorageParent(models.Model):
             end = rec.end_transfer_id
             if end.src_storage_id != transfer.dest_storage_id:
                 raise ValidationError(_(
-                    'storage of the ending transfer must coincide'))
+                    'Storage of the ending transfer must coincide'))
             if end.src_location_id != transfer.dest_location_id:
                 raise ValidationError(_(
                     'Location of the ending transfer must coincide'))
