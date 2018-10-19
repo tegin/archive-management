@@ -20,6 +20,8 @@
                     <field name="transfer_type" invisible="1"/>
                     <field name="storage_id" invisible="1"/>
                     <field name="repository_id" invisible="1"/>
+                    <field name="min_level" invisible="1"/>
+                    <field name="max_level" invisible="1"/>
                     <group>
                         <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')]}"/>
                         <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')]}"/>
