@@ -22,6 +22,7 @@ class ArchiveFileTransferWizard(models.TransientModel):
         'archive.storage',
         domain="["
                "('repository_id', '=', repository_id), "
+               "('can_assign_files', '=', True),"
                "('state', '=', 'on_place')]"
     )
     dest_partner_id = fields.Many2one('res.partner')
