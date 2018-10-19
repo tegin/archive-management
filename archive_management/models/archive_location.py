@@ -13,8 +13,8 @@ class ArchiveLocation(models.Model):
     description = fields.Char(
         required=True
     )
-    file_ids = fields.One2many(
-        'archive.file',
+    storage_ids = fields.One2many(
+        'archive.storage',
         inverse_name='location_id',
         readonly=True,
     )
