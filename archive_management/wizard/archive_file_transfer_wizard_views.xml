@@ -9,21 +9,20 @@
 <odoo>
 
 
-    <record model="ir.ui.view" id="archive_file_transfer_wizard_form">
-        <field name="name">archive.file.transfer.wizard.form</field>
-        <field name="model">archive.file.transfer.wizard</field>
+    <record model="ir.ui.view" id="archive_document_transfer_wizard_form">
+        <field name="name">archive.document.transfer.wizard.form</field>
+        <field name="model">archive.document.transfer.wizard</field>
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <form string="Move">
                 <header/>
                 <sheet>
                     <field name="transfer_type" invisible="1"/>
-                    <field name="file_id" invisible="1"/>
+                    <field name="document_id" invisible="1"/>
                     <field name="repository_id" invisible="1"/>
                     <group>
-                        <field name="dest_file_id" attrs="{'invisible': [('transfer_type', '!=', 'file')]}"/>
+                        <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')]}"/>
                         <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')]}"/>
-                        <field name="dest_location_id" attrs="{'invisible': [('transfer_type', '!=', 'location')]}"/>
                     </group>
                 </sheet>
                 <footer>
@@ -35,10 +34,10 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="archive_file_transfer_wizard_action">
+    <record model="ir.actions.act_window" id="archive_document_transfer_wizard_action">
         <field name="name">Documents</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">archive.file.transfer.wizard</field>
+        <field name="res_model">archive.document.transfer.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
