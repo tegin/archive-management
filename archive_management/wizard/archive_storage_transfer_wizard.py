@@ -1,21 +1,22 @@
 from odoo import api, fields, models
 
 
-class ArchiveFileTransferWizard(models.TransientModel):
-    _name = 'archive.file.transfer.wizard'
+class ArchiveStorageTransferWizard(models.TransientModel):
+    _name = 'archive.storage.transfer.wizard'
 
-    file_id = fields.Many2one(
-        'archive.file',
+    storage_id = fields.Many2one(
+        'archive.storage',
         required=True,
-        readonly=True,
+        readonly=True
     )
     repository_id = fields.Many2one(
         'archive.repository',
-        related='file_id.repository_id',
+        related='storage_id.repository_id',
         readonly=True
     )
     transfer_type = fields.Selection([
         ('storage', 'storage'),
+        ('location', 'Location'),
         ('partner', 'Partner'),
     ], required=True, default='storage')
     dest_storage_id = fields.Many2one(
@@ -24,27 +25,31 @@ class ArchiveFileTransferWizard(models.TransientModel):
                "('repository_id', '=', repository_id), "
                "('state', '=', 'on_place')]"
     )
+    dest_location_id = fields.Many2one('archive.location')
     dest_partner_id = fields.Many2one('res.partner')
 
     @api.onchange('transfer_type')
     def _onchange_transfer_type(self):
         for rec in self:
             rec.dest_storage_id = False
+            rec.dest_location_id = False
             rec.dest_partner_id = False
 
     def _transfer_vals(self):
         return {
-            'file_id': self.file_id.id,
-            'src_storage_id': self.file_id.storage_id.id or False,
-            'src_partner_id': self.file_id.partner_id.id or False,
+            'storage_id': self.storage_id.id,
+            'src_storage_id': self.storage_id.storage_id.id or False,
+            'src_location_id': self.storage_id.location_id.id or False,
+            'src_partner_id': self.storage_id.partner_id.id or False,
             'dest_storage_id': self.dest_storage_id.id or False,
+            'dest_location_id': self.dest_location_id.id or False,
             'dest_partner_id': self.dest_partner_id.id or False,
         }
 
     def _run(self):
-        transfer = self.env['archive.file.transfer'].create(
+        transfer = self.env['archive.storage.transfer'].create(
             self._transfer_vals())
-        self.file_id._transfer(transfer)
+        self.storage_id._transfer(transfer)
         return transfer
 
     def run(self):
