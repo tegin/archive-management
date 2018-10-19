@@ -28,7 +28,6 @@
         'views/archive_location_views.xml',
     ],
     'demo': [
-        'demo/archive_demo_data.xml',
     ],
     'installable': True,
     'auto_install': False,

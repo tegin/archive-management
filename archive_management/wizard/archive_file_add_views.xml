@@ -21,7 +21,7 @@
                     <field name="res_id" invisible="1"/>
                     <field name="model" invisible="1"/>
                     <group>
-                        <field name="repository_id" />
+                        <field name="repository_id" options="{'no_create': True}"/>
                     </group>
                 </sheet>
                 <footer>

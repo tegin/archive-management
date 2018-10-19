@@ -19,6 +19,11 @@ class ArchiveRepository(models.Model):
     model_ids = fields.Many2many(
         'ir.model',
     )
+    repository_level_ids = fields.One2many(
+        'archive.repository.level',
+        inverse_name='repository_id'
+    )
+    level_max_difference = fields.Integer(required=True, default=1)
 
     @api.multi
     def toggle_active(self):
@@ -29,3 +34,25 @@ class ArchiveRepository(models.Model):
                     'to be archived'
                 ))
         return super().toggle_active()
+
+
+class ArchiveRepositoryLevel(models.Model):
+    _name = 'archive.repository.level'
+    _order = 'level'
+
+    repository_id = fields.Many2one(
+        'archive.repository',
+        required=True,
+        readonly=True
+    )
+    name = fields.Char(required=True)
+    level = fields.Integer(
+        required=True,
+        default=1
+    )
+    can_assign_files = fields.Boolean(default=False)
+
+    _sql_constraints = [
+        ('repository_levels', 'unique(repository_id, level)',
+         'Level must be unique in a repository')
+    ]

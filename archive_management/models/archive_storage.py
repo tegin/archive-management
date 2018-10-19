@@ -72,8 +72,23 @@ class ArchiveStorage(models.Model):
     expected_destruction_date = fields.Datetime()
     destruction_date = fields.Datetime(readonly=True)
     repository_id = fields.Many2one(
-        'archive.repository', required=True, readonly=True,
-        states={'draft': [('readonly', True)]}
+        'archive.repository', readonly=True,
+        related='repository_level_id.repository_id', store=True,
+    )
+    repository_level_id = fields.Many2one(
+        'archive.repository.level',
+        required=True, readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
+    level = fields.Integer(
+        related='repository_level_id.level',
+        readonly=True,
+        store=True,
+    )
+    can_assign_files = fields.Boolean(
+        related='repository_level_id.can_assign_files',
+        readonly=True,
+        store=True,
     )
     active = fields.Boolean(compute='_compute_active', store=True)
 
