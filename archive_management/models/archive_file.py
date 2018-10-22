@@ -61,6 +61,11 @@ class ArchiveFile(models.Model):
         return self.env[self.model].browse(self.res_id)
 
     def default_archive_name(self, vals):
+        repository = self.env['archive.repository'].browse(vals.get(
+            'repository_id', False
+        ))
+        if repository.sequence_id:
+            return repository.sequence_id._next()
         return self.env['ir.sequence'].next_by_code(
             'archive.file') or '/'
 
