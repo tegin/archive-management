@@ -47,7 +47,7 @@ class ArchiveFile(models.Model):
          'unique(repository_id, model, res_id)',
          _('File must be unique for a record and repository'))]
 
-    @api.depends('parent_ids')
+    @api.depends('parent_ids', 'parent_ids.end_date')
     def _compute_parent(self):
         for rec in self:
             parent = rec.parent_ids.filtered(lambda r: not r.end_date)
@@ -76,6 +76,7 @@ class ArchiveFile(models.Model):
                 'file_id': self.id,
                 'transfer_id': transfer.id,
             })
+        self._compute_parent()
 
     @api.model
     def _destroy_vals(self):
