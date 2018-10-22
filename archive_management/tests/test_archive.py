@@ -36,10 +36,10 @@ class TestArchiveManagementSystem(TransactionCase):
             'repository_level_id': self.level_01.id,
         })
         self.storage_02 = self.env['archive.storage'].create({
-            'repository_level_id': self.level_01.id,
+            'repository_level_id': self.level_02.id,
         })
         self.storage_03 = self.env['archive.storage'].create({
-            'repository_level_id': self.level_01.id,
+            'repository_level_id': self.level_03.id,
         })
         self.partner = self.env['res.partner'].create({
             'name': 'Partner'
@@ -61,6 +61,36 @@ class TestArchiveManagementSystem(TransactionCase):
         doc = self.env['archive.file'].browse(action.run()['res_id'])
         self.assertEqual(doc.res, partner)
         return doc
+
+    def test_file_sequence(self):
+        sequence = self.env['ir.sequence'].create({
+            'name': 'TEST',
+            'prefix': 'PR',
+            'padding': 2
+        })
+        sequence.write({'number_next_actual': 2})
+        file = self.new_file(partner=self.partner)
+        self.assertNotEqual(file.name, 'PR02')
+        self.repo.write({'sequence_id': sequence.id})
+        file = self.new_file(partner=self.archiving_partner)
+        self.assertEqual(file.name, 'PR02')
+
+    def test_storage_sequence(self):
+        sequence = self.env['ir.sequence'].create({
+            'name': 'TEST',
+            'prefix': 'PR',
+            'padding': 2
+        })
+        sequence.write({'number_next_actual': 2})
+        storage = self.env['archive.storage'].create({
+            'repository_level_id': self.level_01.id,
+        })
+        self.assertNotEqual(storage.name, 'PR02')
+        self.level_01.write({'sequence_id': sequence.id})
+        storage = self.env['archive.storage'].create({
+            'repository_level_id': self.level_01.id,
+        })
+        self.assertEqual(storage.name, 'PR02')
 
     def test_file_moves(self):
         file = self.new_file()
