@@ -21,7 +21,7 @@
                     <field name="file_id" invisible="1"/>
                     <field name="repository_id" invisible="1"/>
                     <group>
-                        <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')]}"/>
+                        <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')]}" options="{'no_create': True}"/>
                         <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')]}"/>
                     </group>
                 </sheet>

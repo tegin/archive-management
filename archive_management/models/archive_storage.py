@@ -59,10 +59,16 @@ class ArchiveStorage(models.Model):
         store=True,
         readonly=True
     )
+    current_partner_id = fields.Many2one(
+        'res.partner',
+        compute='_compute_current_partner',
+        store=True,
+        readonly=True
+    )
     current_location_id = fields.Many2one(
         'archive.location',
         store=True,
-        compute='_compute_current_location'
+        compute='_compute_current_location',
     )
     file_ids = fields.One2many(
         'archive.file',
@@ -114,6 +120,15 @@ class ArchiveStorage(models.Model):
                 r.current_location_id = r.location_id
             else:
                 r.current_location_id = r.storage_id.current_location_id
+
+    @api.depends('partner_id', 'storage_id.current_partner_id')
+    def _compute_current_partner(self):
+        for r in self:
+            if r.partner_id:
+                r.current_partner_id = r.partner_id
+            else:
+                r.current_partner_id = r.storage_id.current_partner_id
+
 
     @api.depends('destruction_date')
     def _compute_active(self):
