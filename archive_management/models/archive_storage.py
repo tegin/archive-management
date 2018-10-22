@@ -121,6 +121,11 @@ class ArchiveStorage(models.Model):
             r.active = not (r.state == 'destroyed')
 
     def default_archive_name(self, vals):
+        level = self.env['archive.repository.level'].browse(vals.get(
+            'repository_level_id', False
+        ))
+        if level.sequence_id:
+            return level.sequence_id._next()
         return self.env['ir.sequence'].next_by_code(
             'archive.storage') or '/'
 
