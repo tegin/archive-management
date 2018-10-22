@@ -23,9 +23,9 @@
                     <field name="min_level" invisible="1"/>
                     <field name="max_level" invisible="1"/>
                     <group>
-                        <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')]}"/>
+                        <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')]}" options="{'no_create': True}"/>
                         <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')]}"/>
-                        <field name="dest_location_id" attrs="{'invisible': [('transfer_type', '!=', 'location')]}"/>
+                        <field name="dest_location_id" attrs="{'invisible': [('transfer_type', '!=', 'location')]}" options="{'no_create': True}"/>
                     </group>
                 </sheet>
                 <footer>
