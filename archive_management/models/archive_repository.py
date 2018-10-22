@@ -24,6 +24,7 @@ class ArchiveRepository(models.Model):
         inverse_name='repository_id'
     )
     level_max_difference = fields.Integer(required=True, default=1)
+    sequence_id = fields.Many2one('ir.sequence')
 
     @api.multi
     def toggle_active(self):
@@ -51,6 +52,7 @@ class ArchiveRepositoryLevel(models.Model):
         default=1
     )
     can_assign_files = fields.Boolean(default=False)
+    sequence_id = fields.Many2one('ir.sequence')
 
     _sql_constraints = [
         ('repository_levels', 'unique(repository_id, level)',
