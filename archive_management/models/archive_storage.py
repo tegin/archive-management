@@ -77,6 +77,7 @@ class ArchiveStorage(models.Model):
     )
     expected_destruction_date = fields.Datetime()
     destruction_date = fields.Datetime(readonly=True)
+    destruction_user_id = fields.Many2one('res.users', readonly=True)
     repository_id = fields.Many2one(
         'archive.repository', readonly=True,
         related='repository_level_id.repository_id', store=True,
@@ -179,6 +180,7 @@ class ArchiveStorage(models.Model):
         return {
             'destruction_date': fields.Datetime.now(),
             'state': 'destroyed',
+            'destruction_user_id': self.env.user.id,
         }
 
     def _transfer(self, transfer):
@@ -205,6 +207,66 @@ class ArchiveStorage(models.Model):
         if not vals.get('parent_ids', False):
             vals['parent_ids'] = [(0, 0, {})]
         return super().create(vals)
+
+    @api.multi
+    def get_transfers(self, start_date=False, end_date=False):
+        self.ensure_one()
+        data = []
+        start = fields.Datetime.from_string(start_date or self.create_date)
+        end = fields.Datetime.from_string(end_date or fields.Datetime.now())
+        if not start_date:
+            data.append({
+                'source': self.name,
+                'date': self.create_date,
+                'message': _('Creation'),
+                'user_id': self.create_uid.name
+            })
+        for p in self.parent_ids.filtered(
+            lambda r: (
+                not r.end_date or
+                fields.Datetime.from_string(r.end_date) >= start
+            ) and fields.Datetime.from_string(r.start_date) <= end
+
+        ):
+            if p.transfer_id and fields.Datetime.from_string(
+                p.start_date
+            ) >= start:
+                data.append(p.transfer_id.get_transfer_report())
+            if p.parent_id:
+                data += p.parent_id.get_transfers(p.start_date, p.end_date)
+        if not end_date and self.destruction_date:
+            data.append({
+                'source': self.name,
+                'date': self.destruction_date,
+                'message': _('Destruction'),
+                'user_id': self.destruction_user_id.name,
+            })
+        return data
+
+    def _position_vals(self, date):
+        datetime = fields.Datetime.from_string(date)
+        parent = self.parent_ids.filtered(
+            lambda r: (
+                not r.end_date or
+                fields.Datetime.from_string(r.end_date) <= datetime
+            ) and fields.Datetime.from_string(r.start_date) >= datetime
+        )
+        if parent.parent_id:
+            res = parent.parent_id._position_vals(date)
+            res['storage_id'] = '%s/%s' % (self.name, res['storage_id'])
+        else:
+            res = {
+                'storage_id': self.name,
+                'partner_id': parent.partner_id.name or False,
+                'location_id': parent.location_id.name or False,
+            }
+        return res
+
+    @api.multi
+    def print_transfer_history(self):
+        return self.env.ref(
+            'archive_management.action_report_transfer_history_file'
+        ).report_action(self.ids, data={'model': self._name})
 
 
 class ArchiveStorageParent(models.Model):

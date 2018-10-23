@@ -26,6 +26,7 @@
         'views/archive_file_views.xml',
         'views/archive_storage_views.xml',
         'views/archive_location_views.xml',
+        'report/report_transfer_history.xml',
     ],
     'demo': [
     ],
