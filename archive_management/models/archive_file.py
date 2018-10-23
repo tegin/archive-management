@@ -41,6 +41,7 @@ class ArchiveFile(models.Model):
     )
     expected_destruction_date = fields.Datetime()
     destruction_date = fields.Datetime(readonly=True)
+    destruction_user_id = fields.Many2one('res.users', readonly=True)
 
     _sql_constraints = [
         ('repository_record',
@@ -81,7 +82,8 @@ class ArchiveFile(models.Model):
     @api.model
     def _destroy_vals(self):
         return {
-            'destruction_date': fields.Datetime.now()
+            'destruction_date': fields.Datetime.now(),
+            'destruction_user_id': self.env.user.id,
         }
 
     def destroy(self):
@@ -94,6 +96,36 @@ class ArchiveFile(models.Model):
         if not vals.get('parent_ids', False):
             vals['parent_ids'] = [(0, 0, {})]
         return super().create(vals)
+
+    @api.multi
+    def get_transfers(self):
+        self.ensure_one()
+        data = [{
+            'source': self.name,
+            'date': self.create_date,
+            'user_id': self.create_uid.name,
+            'message': _('Creation'),
+        }]
+        for parent in self.parent_ids:
+            if parent.transfer_id:
+                data.append(parent.transfer_id.get_transfer_report())
+            if parent.storage_id:
+                data += parent.storage_id.get_transfers(
+                    parent.start_date, parent.end_date)
+        if self.destruction_date:
+            data.append({
+                'source': self.name,
+                'date': self.destruction_date,
+                'message': _('Destruction'),
+                'user_id': self.destruction_user_id.name,
+            })
+        return data
+
+    @api.multi
+    def print_transfer_history(self):
+        return self.env.ref(
+            'archive_management.action_report_transfer_history_file'
+        ).report_action(self, data={'model': self._name})
 
 
 class ArchiveFileStorage(models.Model):
@@ -138,8 +170,8 @@ class ArchiveFileStorage(models.Model):
     @api.constrains('file_id', 'end_transfer_id')
     def _check_end_transfer(self):
         if self.filtered(
-            lambda r: r.end_transfer_id
-            and r.end_transfer_id.file_id != r.file_id
+                lambda r: r.end_transfer_id
+                and r.end_transfer_id.file_id != r.file_id
         ):
             raise ValidationError(_(
                 'File of the ending transfer must coincide'))
@@ -147,7 +179,7 @@ class ArchiveFileStorage(models.Model):
     @api.constrains('file_id', 'transfer_id', 'end_transfer_id')
     def _check_transfer_end_transfer(self):
         for rec in self.filtered(
-            lambda r: r.end_transfer_id and r.transfer_id
+                lambda r: r.end_transfer_id and r.transfer_id
         ):
             transfer = rec.transfer_id
             end = rec.end_transfer_id
