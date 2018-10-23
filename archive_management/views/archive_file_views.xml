@@ -50,6 +50,13 @@
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
+                        <button name="print_transfer_history"
+                                type="object"
+                                class="oe_stat_button" icon="fa-print"
+                                string="Print"
+                                groups="archive_management.group_archive_user"
+                                />
+
                     </div>
                     <h2>
                         <field name="name"/>
