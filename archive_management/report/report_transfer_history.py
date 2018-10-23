@@ -22,4 +22,3 @@ class ReportFileHistory(models.AbstractModel):
             'docs': source.get_transfers(),
         }
         return res
-

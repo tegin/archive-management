@@ -130,7 +130,6 @@ class ArchiveStorage(models.Model):
             else:
                 r.current_partner_id = r.storage_id.current_partner_id
 
-
     @api.depends('destruction_date')
     def _compute_active(self):
         for r in self:
