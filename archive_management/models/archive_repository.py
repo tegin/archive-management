@@ -16,7 +16,7 @@ class ArchiveRepository(models.Model):
     expects_destruction = fields.Boolean(default=False)
     destruction_months = fields.Integer()
     active = fields.Boolean(default=True)
-    model_ids = fields.Many2many(
+    res_model_ids = fields.Many2many(
         'ir.model',
     )
     repository_level_ids = fields.One2many(
