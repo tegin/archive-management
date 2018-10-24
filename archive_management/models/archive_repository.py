@@ -39,7 +39,7 @@ class ArchiveRepository(models.Model):
 
 class ArchiveRepositoryLevel(models.Model):
     _name = 'archive.repository.level'
-    _order = 'level'
+    _order = 'repository_id, level'
 
     repository_id = fields.Many2one(
         'archive.repository',
@@ -58,3 +58,21 @@ class ArchiveRepositoryLevel(models.Model):
         ('repository_levels', 'unique(repository_id, level)',
          'Level must be unique in a repository')
     ]
+
+    def add_repository_prefix(self, names):
+        res = []
+        for name in names:
+            rec = self.browse(name[0])
+            name = '[%s] %s' % (rec.repository_id.name, name[1])
+            res += [(rec.id, name)]
+        return res
+
+    @api.multi
+    @api.depends('repository_id')
+    def name_get(self):
+        """When the user is assigned to the multi-company group,
+        all of the multi-company dependent objects will be listed with the
+        company as suffix, in brackets."""
+        names = super(ArchiveRepositoryLevel, self).name_get()
+        res = self.add_repository_prefix(names)
+        return res
