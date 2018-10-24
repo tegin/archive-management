@@ -16,18 +16,18 @@ class ArchiveAbstract(models.AbstractModel):
     )
 
     def _compute_repository_files(self):
-        model = self.env['ir.model'].search([('model', '=', self._name)])
+        res_model = self.env['ir.model'].search([('model', '=', self._name)])
         for r in self:
             files = self.env['archive.file'].search([
                 ('res_id', '=', r.id),
-                ('model', '=', self._name)
+                ('res_model', '=', self._name)
             ])
             r.file_ids = files
             r.file_count = len(files)
             repos = files.mapped('repository_id')
             r.pending_archive_file = bool(
                 self.env['archive.repository'].search([
-                    ('model_ids', '=', model.id),
+                    ('res_model_ids', '=', res_model.id),
                     ('id', 'not in', repos.ids)
                 ]))
 
@@ -39,7 +39,7 @@ class ArchiveAbstract(models.AbstractModel):
         result = action.read()[0]
         result['context'] = {
             'default_res_id': self.id,
-            'default_model': self._name
+            'default_res_model': self._name
         }
         return result
 
@@ -49,7 +49,7 @@ class ArchiveAbstract(models.AbstractModel):
                               'archive_file_action')
         result = action.read()[0]
         result['domain'] = [
-            ('model', '=', self._name),
+            ('res_model', '=', self._name),
             ('res_id', 'in', self.ids)
         ]
         return result
