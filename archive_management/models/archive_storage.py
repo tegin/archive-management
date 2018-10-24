@@ -10,7 +10,6 @@ class ArchiveStorage(models.Model):
         required=True,
         default='/',
         readonly=True,
-        dependant_default='default_archive_name'
     )
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -135,6 +134,15 @@ class ArchiveStorage(models.Model):
         for r in self:
             r.active = not (r.state == 'destroyed')
 
+    @api.model
+    def create(self, vals):
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.default_archive_name(vals)
+        if not vals.get('parent_ids', False):
+            vals['parent_ids'] = [(0, 0, {})]
+        return super().create(vals)
+
+    @api.model
     def default_archive_name(self, vals):
         level = self.env['archive.repository.level'].browse(vals.get(
             'repository_level_id', False
@@ -200,12 +208,6 @@ class ArchiveStorage(models.Model):
             rec.parent_id.close()
             rec.child_ids.destroy()
         self.write(self._destroy_vals())
-
-    @api.model
-    def create(self, vals):
-        if not vals.get('parent_ids', False):
-            vals['parent_ids'] = [(0, 0, {})]
-        return super().create(vals)
 
     @api.multi
     def get_transfers(self, start_date=False, end_date=False):

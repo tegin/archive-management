@@ -9,7 +9,6 @@ class ArchiveFile(models.Model):
         required=True,
         default='/',
         readonly=True,
-        dependant_default='default_archive_name'
     )
     res_model = fields.Char(required=True, readonly=True)
     res_id = fields.Integer(required=True, readonly=True)
@@ -71,6 +70,15 @@ class ArchiveFile(models.Model):
         self.ensure_one()
         return self.env[self.res_model].browse(self.res_id)
 
+    @api.model
+    def create(self, vals):
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.default_archive_name(vals)
+        if not vals.get('parent_ids', False):
+            vals['parent_ids'] = [(0, 0, {})]
+        return super().create(vals)
+
+    @api.model
     def default_archive_name(self, vals):
         repository = self.env['archive.repository'].browse(vals.get(
             'repository_id', False
@@ -121,12 +129,6 @@ class ArchiveFile(models.Model):
             ]
         }
         return response
-
-    @api.model
-    def create(self, vals):
-        if not vals.get('parent_ids', False):
-            vals['parent_ids'] = [(0, 0, {})]
-        return super().create(vals)
 
     @api.multi
     def get_transfers(self):

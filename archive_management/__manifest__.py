@@ -10,7 +10,6 @@
     'category': 'Medical',
     'depends': [
         'mail',
-        'field_dependant_default',
     ],
     'website': 'https://github.com/OCA/vertical-medical',
     "license": "LGPL-3",
