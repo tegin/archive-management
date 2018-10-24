@@ -7,7 +7,8 @@ class TestArchiveManagementSystem(TransactionCase):
         super().setUp()
         self.repo = self.env['archive.repository'].create({
             'name': 'Repo',
-            'model_ids': [(4, self.browse_ref('base.model_res_partner').id)],
+            'res_model_ids': [(4, self.browse_ref(
+                'base.model_res_partner').id)],
             'level_max_difference': 2,
         })
         self.level_01 = self.env['archive.repository.level'].create({
@@ -53,7 +54,7 @@ class TestArchiveManagementSystem(TransactionCase):
             partner = self.partner
         action = self.env['archive.file.add'].new({
             'repository_id': self.repo.id,
-            'model': partner._name,
+            'res_model': partner._name,
             'res_id': partner.id
         })
         self.assertIn(self.repo, action.repository_ids)
@@ -61,6 +62,27 @@ class TestArchiveManagementSystem(TransactionCase):
         doc = self.env['archive.file'].browse(action.run()['res_id'])
         self.assertEqual(doc.res, partner)
         return doc
+
+    def test_open_origin_res_partner(self):
+        """ This test case checks
+                - If the method redirects to the form view of the correct one
+                of an object of the 'res.partner' class to which the activity
+                belongs.
+        """
+        # Id of the form view for the class 'crm.lead', type 'lead'
+        form_view_partner_id = self.env.ref('base.view_partner_form').id
+         # Id of the form view return open_origin()
+        view = self.get_view(self.act1)
+         # Check the next view is correct
+        self.assertEqual(form_view_partner_id, view.get('view_id'))
+         # Id of the form view return open_origin()
+        view = self.get_view(self.act2)
+         # Check the next view is correct
+        self.assertEqual(form_view_partner_id, view.get('view_id'))
+         # Id of the form view return open_origin()
+        view = self.get_view(self.act3)
+         # Check the next view is correct
+        self.assertEqual(form_view_partner_id, view.get('view_id'))
 
     def test_file_sequence(self):
         sequence = self.env['ir.sequence'].create({

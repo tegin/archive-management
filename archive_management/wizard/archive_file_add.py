@@ -4,7 +4,7 @@ from odoo import api, fields, models
 class ArchiveFileAdd(models.TransientModel):
     _name = 'archive.file.add'
 
-    model = fields.Char(required=True, readonly=True)
+    res_model = fields.Char(required=True, readonly=True)
     res_id = fields.Integer(required=True, readonly=True)
     repository_id = fields.Many2one(
         'archive.repository',
@@ -15,22 +15,23 @@ class ArchiveFileAdd(models.TransientModel):
         compute='_compute_repositories'
     )
 
-    @api.depends('model', 'res_id')
+    @api.depends('res_model', 'res_id')
     def _compute_repositories(self):
         for record in self:
             repos = self.env['archive.file'].search([
-                ('model', '=', record.model),
+                ('res_model', '=', record.res_model),
                 ('res_id', '=', record.res_id)
             ]).mapped('repository_id')
-            model = self.env['ir.model'].search([('model', '=', record.model)])
+            res_model = self.env['ir.model'].search([('model', '=',
+                                                      record.res_model)])
             record.repository_ids = self.env['archive.repository'].search([
-                ('model_ids', '=', model.id),
+                ('res_model_ids', '=', res_model.id),
                 ('id', 'not in', repos.ids)
             ])
 
     def _file_vals(self):
         return {
-            'model': self.model,
+            'res_model': self.res_model,
             'res_id': self.res_id,
             'repository_id': self.repository_id.id,
         }

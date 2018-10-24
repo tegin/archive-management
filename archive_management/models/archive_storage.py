@@ -265,7 +265,7 @@ class ArchiveStorage(models.Model):
     def print_transfer_history(self):
         return self.env.ref(
             'archive_management.action_report_transfer_history_file'
-        ).report_action(self.ids, data={'model': self._name})
+        ).report_action(self.ids, data={'res_model': self._name})
 
 
 class ArchiveStorageParent(models.Model):

@@ -57,7 +57,7 @@
                             <field name="level_max_difference"/>
                         </group>
                         <group>
-                            <field name="model_ids" widget="many2many_tags"/>
+                            <field name="res_model_ids" widget="many2many_tags"/>
                             <field name="sequence_id"/>
                         </group>
                     </group>

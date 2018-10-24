@@ -11,8 +11,11 @@ class ArchiveFile(models.Model):
         readonly=True,
         dependant_default='default_archive_name'
     )
-    model = fields.Char(required=True, readonly=True)
+    res_model = fields.Char(required=True, readonly=True)
     res_id = fields.Integer(required=True, readonly=True)
+    res_name = fields.Char(
+        'Document Name', compute='_compute_res_name', store=True,
+        help="Display name of the related document.", readonly=True)
     parent_ids = fields.One2many(
         'archive.file.storage',
         inverse_name='file_id',
@@ -45,8 +48,15 @@ class ArchiveFile(models.Model):
 
     _sql_constraints = [
         ('repository_record',
-         'unique(repository_id, model, res_id)',
+         'unique(repository_id, res_model, res_id)',
          _('File must be unique for a record and repository'))]
+
+    @api.depends('res_model', 'res_id')
+    def _compute_res_name(self):
+        for file in self:
+            if file.res_model:
+                file.res_name = self.env[file.res_model].browse(
+                    file.res_id).name_get()[0][1]
 
     @api.depends('parent_ids', 'parent_ids.end_date')
     def _compute_parent(self):
@@ -59,7 +69,7 @@ class ArchiveFile(models.Model):
     @property
     def res(self):
         self.ensure_one()
-        return self.env[self.model].browse(self.res_id)
+        return self.env[self.res_model].browse(self.res_id)
 
     def default_archive_name(self, vals):
         repository = self.env['archive.repository'].browse(vals.get(
@@ -90,6 +100,27 @@ class ArchiveFile(models.Model):
         for rec in self:
             rec._transfer(False)
         self.write(self._destroy_vals())
+
+    @api.multi
+    def open_origin(self):
+        self.ensure_one()
+        vid = self.env[self.res_model].browse(self.res_id).get_formview_id()
+        response = {
+            'type': 'ir.actions.act_window',
+            'res_model': self.res_model,
+            'view_mode': 'form',
+            'res_id': self.res_id,
+            'target': 'current',
+            'flags': {
+                'form': {
+                    'action_buttons': False
+                }
+            },
+            'views': [
+                (vid, "form")
+            ]
+        }
+        return response
 
     @api.model
     def create(self, vals):
@@ -125,7 +156,7 @@ class ArchiveFile(models.Model):
     def print_transfer_history(self):
         return self.env.ref(
             'archive_management.action_report_transfer_history_file'
-        ).report_action(self, data={'model': self._name})
+        ).report_action(self, data={'res_model': self._name})
 
 
 class ArchiveFileStorage(models.Model):
