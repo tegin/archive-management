@@ -2,7 +2,7 @@
 <odoo>
     <record id="demo_repository" model="archive.repository">
         <field name="name">Demo repository</field>
-        <field name="model_ids" eval="[(4, ref('base.model_res_partner'))]"/>
+        <field name="res_model_ids" eval="[(4, ref('base.model_res_partner'))]"/>
     </record>
     <record id="demo_repository_subseries" model="archive.repository.level">
         <field name="repository_id" ref="demo_repository"/>
