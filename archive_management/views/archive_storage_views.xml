@@ -39,21 +39,27 @@
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
-                        <button name="%(archive_storage_transfer_wizard_action)s" type="action"
+                        <button name="%(archive_storage_transfer_wizard_action)s"
+                                type="action"
                                 class="oe_stat_button" icon="fa-folder-open"
-                                string="Move to a storage" context="{'default_transfer_type': 'storage', 'default_storage_id': active_id}"
+                                string="Move to a storage"
+                                context="{'default_transfer_type': 'storage', 'default_storage_id': active_id}"
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
-                        <button name="%(archive_storage_transfer_wizard_action)s" type="action"
+                        <button name="%(archive_storage_transfer_wizard_action)s"
+                                type="action"
                                 class="oe_stat_button" icon="fa-building"
-                                string="Move to a location" context="{'default_transfer_type': 'location', 'default_storage_id': active_id}"
+                                string="Move to a location"
+                                context="{'default_transfer_type': 'location', 'default_storage_id': active_id}"
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
-                        <button name="%(archive_storage_transfer_wizard_action)s" type="action"
+                        <button name="%(archive_storage_transfer_wizard_action)s"
+                                type="action"
                                 class="oe_stat_button" icon="fa-user-circle"
-                                string="Give to a Partner" context="{'default_transfer_type': 'partner', 'default_storage_id': active_id}"
+                                string="Give to a Partner"
+                                context="{'default_transfer_type': 'partner', 'default_storage_id': active_id}"
                                 attrs="{'invisible': [('destruction_date', '!=', False)]}"
                                 groups="archive_management.group_archive_user"
                         />
@@ -62,14 +68,15 @@
                                 class="oe_stat_button" icon="fa-print"
                                 string="Print"
                                 groups="archive_management.group_archive_user"
-                                />
+                        />
                     </div>
                     <h2>
                         <field name="name"/>
                     </h2>
                     <group>
                         <group>
-                            <field name="repository_level_id" widget="selection"/>
+                            <field name="repository_level_id"
+                                   widget="selection"/>
                             <field name="storage_id"/>
                             <field name="partner_id"/>
                             <field name="current_location_id"/>
@@ -81,6 +88,25 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="archive_storage_search" model="ir.ui.view">
+        <field name="name">archive.storage.view.search</field>
+        <field name="model">archive.storage</field>
+        <field name="arch" type="xml">
+            <search string="Storage">
+                <field name="name"/>
+                <field name="storage_id"/>
+                <field name="location_id"/>
+                <field name="partner_id"/>
+                <filter string="Draft"
+                        domain="[('state', '=', 'draft')]"/>
+                <filter string="On Place"
+                        domain="[('state', '=', 'on_place')]"/>
+                <filter string="Destroyed"
+                        domain="[('state', '=', 'destroyed')]"/>
+            </search>
         </field>
     </record>
 
