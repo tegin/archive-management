@@ -56,11 +56,14 @@
                                 class="oe_stat_button" icon="fa-print"
                                 string="Print"
                                 groups="archive_management.group_archive_user"
-                                />
+                        />
 
                     </div>
-                    <button name="open_origin" type="object" class="centre oe_link" nolabel="1">
-                        <h1><field name="res_name"/></h1>
+                    <button name="open_origin" type="object"
+                            class="centre oe_link" nolabel="1">
+                        <h1>
+                            <field name="res_name"/>
+                        </h1>
                     </button>
                     <h2>
                         <field name="name"/>
@@ -78,6 +81,22 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="archive_file_search" model="ir.ui.view">
+        <field name="name">archive.file.view.search</field>
+        <field name="model">archive.file</field>
+        <field name="arch" type="xml">
+            <search string="File">
+                <field name="name"/>
+                <field name="storage_id"/>
+                <field name="partner_id"/>
+                <filter string="On Place"
+                        domain="[('destruction_date', '=', False)]"/>
+                <filter string="Destroyed"
+                        domain="[('destruction_date', '!=', False)]"/>
+            </search>
         </field>
     </record>
 
