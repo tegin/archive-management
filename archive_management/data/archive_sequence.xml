@@ -8,17 +8,17 @@
 
 <odoo>
 
+    <record id="seq_archive_storage" model="ir.sequence">
+        <field name="name">Archive Storage sequence</field>
+        <field name="code">archive.storage</field>
+        <field name="prefix">AS</field>
+        <field name="padding">8</field>
+    </record>
+
     <record id="seq_archive_file" model="ir.sequence">
         <field name="name">Archive File sequence</field>
         <field name="code">archive.file</field>
         <field name="prefix">AF</field>
-        <field name="padding">8</field>
-    </record>
-
-    <record id="seq_archive_document" model="ir.sequence">
-        <field name="name">Archive Document sequence</field>
-        <field name="code">archive.document</field>
-        <field name="prefix">DC</field>
         <field name="padding">8</field>
     </record>
 

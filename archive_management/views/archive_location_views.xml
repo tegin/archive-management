@@ -15,6 +15,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="description"/>
             </tree>
         </field>
     </record>
@@ -42,6 +43,17 @@
                     </group>
                 </sheet>
             </form>
+        </field>
+    </record>
+
+    <record id="archive_location_search" model="ir.ui.view">
+        <field name="name">archive.location.view.search</field>
+        <field name="model">archive.location</field>
+        <field name="arch" type="xml">
+            <search string="Location">
+                <field name="name"/>
+                <field name="description"/>
+            </search>
         </field>
     </record>
 

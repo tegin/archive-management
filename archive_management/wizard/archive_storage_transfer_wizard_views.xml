@@ -9,20 +9,23 @@
 <odoo>
 
 
-    <record model="ir.ui.view" id="archive_file_transfer_wizard_form">
-        <field name="name">archive.file.transfer.wizard.form</field>
-        <field name="model">archive.file.transfer.wizard</field>
+    <record model="ir.ui.view" id="archive_storage_transfer_wizard_form">
+        <field name="name">archive.storage.transfer.wizard.form</field>
+        <field name="model">archive.storage.transfer.wizard</field>
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <form string="Move">
                 <header/>
                 <sheet>
                     <field name="transfer_type" invisible="1"/>
-                    <field name="file_id" invisible="1"/>
+                    <field name="storage_id" invisible="1"/>
                     <field name="repository_id" invisible="1"/>
+                    <field name="min_level" invisible="1"/>
+                    <field name="max_level" invisible="1"/>
                     <group>
                         <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')], 'required': [('transfer_type', '=', 'storage')]}" options="{'no_create': True}"/>
                         <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')], 'required': [('transfer_type', '=', 'partner')]}"/>
+                        <field name="dest_location_id" attrs="{'invisible': [('transfer_type', '!=', 'location')], 'required': [('transfer_type', '=', 'location')]}" options="{'no_create': True}"/>
                     </group>
                 </sheet>
                 <footer>
@@ -34,10 +37,10 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="archive_file_transfer_wizard_action">
+    <record model="ir.actions.act_window" id="archive_storage_transfer_wizard_action">
         <field name="name">Files</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">archive.file.transfer.wizard</field>
+        <field name="res_model">archive.storage.transfer.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>

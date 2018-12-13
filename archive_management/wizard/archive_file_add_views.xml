@@ -9,24 +9,23 @@
 <odoo>
 
 
-    <record model="ir.ui.view" id="archive_document_transfer_wizard_form">
-        <field name="name">archive.document.transfer.wizard.form</field>
-        <field name="model">archive.document.transfer.wizard</field>
+    <record model="ir.ui.view" id="archive_file_add_form">
+        <field name="name">archive.file.add.form</field>
+        <field name="model">archive.file.add</field>
         <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <form string="Move">
                 <header/>
                 <sheet>
-                    <field name="transfer_type" invisible="1"/>
-                    <field name="document_id" invisible="1"/>
-                    <field name="repository_id" invisible="1"/>
+                    <field name="repository_ids" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="res_model" invisible="1"/>
                     <group>
-                        <field name="dest_file_id" attrs="{'invisible': [('transfer_type', '!=', 'file')]}"/>
-                        <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')]}"/>
+                        <field name="repository_id" options="{'no_create': True}"/>
                     </group>
                 </sheet>
                 <footer>
-                    <button string="Transfer" name="run"
+                    <button string="Create" name="run"
                             type="object" default_focus="1" class="btn-primary"/>
                     <button string="Cancel" class="btn-default" special="cancel"/>
                 </footer>
@@ -34,10 +33,10 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="archive_document_transfer_wizard_action">
-        <field name="name">Documents</field>
+    <record model="ir.actions.act_window" id="archive_file_add_action">
+        <field name="name">File Add</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="res_model">archive.document.transfer.wizard</field>
+        <field name="res_model">archive.file.add</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
