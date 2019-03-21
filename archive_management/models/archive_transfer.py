@@ -29,9 +29,43 @@ class ArchiveFileTransfer(models.Model):
         return res
 
 
+class ArchiveMultiStorageTransfer(models.Model):
+    _name = 'archive.multi.storage.transfer'
+
+    name = fields.Char(
+        required=True,
+        default='/',
+        readonly=True,
+    )
+    transfer_ids = fields.One2many(
+        'archive.storage.transfer',
+        inverse_name='multi_transfer_id',
+        readonly=True,
+    )
+    dest_location_id = fields.Many2one('archive.location', readonly=True)
+    dest_partner_id = fields.Many2one('res.partner', readonly=True)
+    dest_storage_id = fields.Many2one('archive.storage', readonly=True)
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', '/') == '/':
+            vals['name'] = self.default_multi_storage_transfer_name(vals)
+        return super().create(vals)
+
+    @api.model
+    def default_multi_storage_transfer_name(self, vals):
+        return self.env['ir.sequence'].next_by_code(
+            'archive.multi.storage.transfer') or '/'
+
+
 class ArchiveStorageTransfer(models.Model):
     _name = 'archive.storage.transfer'
 
+    multi_transfer_id = fields.Many2one(
+        'archive.multi.storage.transfer',
+        readonly=True,
+        ondelete='restrict',
+    )
     storage_id = fields.Many2one(
         'archive.storage',
         required=True,
