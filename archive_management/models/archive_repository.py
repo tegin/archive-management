@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 
 class ArchiveRepository(models.Model):
     _name = 'archive.repository'
+    _description = 'archive.repository'
 
     name = fields.Char(
         required=True,
@@ -39,6 +40,7 @@ class ArchiveRepository(models.Model):
 
 class ArchiveRepositoryLevel(models.Model):
     _name = 'archive.repository.level'
+    _description = 'archive.repository.level'
     _order = 'repository_id, level'
 
     repository_id = fields.Many2one(

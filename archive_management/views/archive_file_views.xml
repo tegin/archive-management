@@ -92,9 +92,9 @@
                 <field name="name"/>
                 <field name="storage_id"/>
                 <field name="partner_id"/>
-                <filter string="On Place"
+                <filter string="On Place" name="on_place"
                         domain="[('destruction_date', '=', False)]"/>
-                <filter string="Destroyed"
+                <filter string="Destroyed" name="destroyed"
                         domain="[('destruction_date', '!=', False)]"/>
             </search>
         </field>

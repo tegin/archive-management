@@ -3,15 +3,18 @@ from odoo import api, fields, models
 
 class ArchiveFileAdd(models.TransientModel):
     _name = 'archive.file.add'
+    _description = 'archive.file.add'
 
     res_model = fields.Char(required=True, readonly=True)
     res_id = fields.Integer(required=True, readonly=True)
     repository_id = fields.Many2one(
         'archive.repository',
+        string='Repository',
         domain="[('id', 'in', repository_ids)]"
     )
     repository_ids = fields.Many2many(
         'archive.repository',
+        string='Repositories',
         compute='_compute_repositories'
     )
 

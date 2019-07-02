@@ -100,11 +100,11 @@
                 <field name="storage_id"/>
                 <field name="location_id"/>
                 <field name="partner_id"/>
-                <filter string="Draft"
+                <filter string="Draft" name="draft"
                         domain="[('state', '=', 'draft')]"/>
-                <filter string="On Place"
+                <filter string="On Place" name="on_place"
                         domain="[('state', '=', 'on_place')]"/>
-                <filter string="Destroyed"
+                <filter string="Destroyed" name="destroyed"
                         domain="[('state', '=', 'destroyed')]"/>
             </search>
         </field>

@@ -4,6 +4,7 @@ from odoo.exceptions import UserError
 
 class ReportFileHistory(models.AbstractModel):
     _name = 'report.archive_management.report_transfer_history'
+    _description = 'report.archive_management.report_transfer_history'
 
     @api.model
     def get_report_values(self, docids, data=None):

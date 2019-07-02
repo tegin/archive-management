@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class ArchiveAbstract(models.AbstractModel):
     _name = 'archive.abstract'
+    _description = 'archive.abstract'
 
     file_ids = fields.One2many(
         'archive.file',

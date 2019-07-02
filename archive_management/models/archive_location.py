@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class ArchiveLocation(models.Model):
     _name = 'archive.location'
+    _description = 'archive.location'
     _rec_name = 'description'
 
     name = fields.Char(
