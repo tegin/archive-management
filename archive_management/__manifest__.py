@@ -4,7 +4,7 @@
 
 {
     'name': 'Archive management system',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': "Eficent, Creu Blanca, Odoo Community Association (OCA)",
     'summary': 'Based on ISO 15489',
     'category': 'Medical',
@@ -28,8 +28,6 @@
         'views/archive_location_views.xml',
         'views/archive_multi_storage_transfer_views.xml',
         'report/report_transfer_history.xml',
-    ],
-    'demo': [
     ],
     'installable': True,
     'auto_install': False,
