@@ -4,7 +4,7 @@
 
 {
     'name': 'Archive management demo',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'author': "Eficent, Creu Blanca, Odoo Community Association (OCA)",
     'summary': 'Based on ISO 15489',
     'category': 'Medical',
@@ -16,8 +16,6 @@
     "data": [
         'data/archive_demo_data.xml',
         'views/res_partner_views.xml',
-    ],
-    'demo': [
     ],
     'installable': True,
     'auto_install': False,
