@@ -5,8 +5,8 @@ from odoo import api, fields, models
 
 
 class ArchiveMultiStorageTransferWizard(models.TransientModel):
-
     _name = 'archive.multi.storage.transfer.wizard'
+    _description = 'archive.multi.storage.transfer.wizard'
 
     original_location_id = fields.Many2one(
         'archive.location',

@@ -4,6 +4,7 @@ from odoo.exceptions import ValidationError
 
 class ArchiveStorage(models.Model):
     _name = 'archive.storage'
+    _description = 'archive.storage'
     _parent_name = 'storage_id'
 
     name = fields.Char(
@@ -19,10 +20,12 @@ class ArchiveStorage(models.Model):
     parent_ids = fields.One2many(
         'archive.storage.parent',
         inverse_name='child_id',
+        string='Parents',
         readonly=True,
     )
     parent_id = fields.Many2one(
         'archive.storage.parent',
+        string='Parent',
         compute='_compute_parent',
         store=True,
         readonly=True,
@@ -272,6 +275,7 @@ class ArchiveStorage(models.Model):
 
 class ArchiveStorageParent(models.Model):
     _name = 'archive.storage.parent'
+    _description = 'archive.storage.parent'
 
     child_id = fields.Many2one(
         'archive.storage',
