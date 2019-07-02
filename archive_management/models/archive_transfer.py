@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class ArchiveFileTransfer(models.Model):
     _name = 'archive.file.transfer'
+    _description = 'archive.file.transfer'
 
     file_id = fields.Many2one(
         'archive.file',
@@ -31,6 +32,7 @@ class ArchiveFileTransfer(models.Model):
 
 class ArchiveMultiStorageTransfer(models.Model):
     _name = 'archive.multi.storage.transfer'
+    _description = 'archive.multi.storage.transfer'
 
     name = fields.Char(
         required=True,
@@ -60,6 +62,7 @@ class ArchiveMultiStorageTransfer(models.Model):
 
 class ArchiveStorageTransfer(models.Model):
     _name = 'archive.storage.transfer'
+    _description = 'archive.storage.transfer'
 
     multi_transfer_id = fields.Many2one(
         'archive.multi.storage.transfer',

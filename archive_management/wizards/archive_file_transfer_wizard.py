@@ -3,6 +3,7 @@ from odoo import api, fields, models
 
 class ArchiveFileTransferWizard(models.TransientModel):
     _name = 'archive.file.transfer.wizard'
+    _description = 'archive.file.transfer.wizard'
 
     file_id = fields.Many2one(
         'archive.file',
