@@ -32,8 +32,9 @@ class ArchiveStorage(models.Model):
     storage_id = fields.Many2one(
         "archive.storage", compute="_compute_parent", store=True, readonly=True
     )
-    parent_left = fields.Integer("Left Parent", index=True)
-    parent_right = fields.Integer("Right Parent", index=True)
+
+    parent_path = fields.Char(index=True)
+
     child_ids = fields.One2many(
         "archive.storage", inverse_name="storage_id", readonly=True
     )
