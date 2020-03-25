@@ -14,12 +14,13 @@
    viewBox="0 0 600.00001 600.00001"
    id="svg4165"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
    enable-background="new"
    sodipodi:docname="icon.svg"
    inkscape:export-storagename="/home/etobella/pyworkspace/cb-addons/archive_management/static/description/icon.png"
-   inkscape:export-xdpi="38.400002"
-   inkscape:export-ydpi="38.400002">
+   inkscape:export-xdpi="99.59964"
+   inkscape:export-ydpi="99.59964"
+   inkscape:export-filename="/home/jaime/CB/pyworkspace/archive-management/archive_management/static/description/icon.png">
   <defs
      id="defs4167">
     <filter
@@ -40,38 +41,46 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.24748737"
-     inkscape:cx="-697.09229"
-     inkscape:cy="-528.97152"
+     inkscape:zoom="0.98994948"
+     inkscape:cx="408.41301"
+     inkscape:cy="371.1724"
      inkscape:file-units="px"
      inkscape:current-layer="layer2"
      showgrid="false"
      units="px"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1855"
-     inkscape:window-height="1056"
-     inkscape:window-x="1985"
-     inkscape:window-y="24"
-     inkscape:window-maximized="1">
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="false"
+     inkscape:object-nodes="false"
+     inkscape:snap-nodes="true"
+     inkscape:snap-others="false">
     <sodipodi:guide
        position="53.214287,514.64287"
        orientation="-0.70710678,0.70710678"
        id="guide4731"
        inkscape:label=""
-       inkscape:color="rgb(0,0,255)" />
+       inkscape:color="rgb(0,0,255)"
+       inkscape:locked="false" />
     <sodipodi:guide
        position="516.07144,86.785716"
        orientation="-0.70710678,0.70710678"
        id="guide4733"
        inkscape:label=""
-       inkscape:color="rgb(0,0,255)" />
+       inkscape:color="rgb(0,0,255)"
+       inkscape:locked="false" />
     <sodipodi:guide
        position="551.60715,432.94644"
        orientation="-0.70710678,0.70710678"
        id="guide4735"
        inkscape:label=""
-       inkscape:color="rgb(0,0,255)" />
+       inkscape:color="rgb(0,0,255)"
+       inkscape:locked="false" />
   </sodipodi:namedview>
   <metadata
      id="metadata4170">
@@ -81,7 +90,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -96,7 +105,10 @@
        width="600"
        height="600"
        x="0"
-       y="0" />
+       y="0"
+       ry="32.324883"
+       inkscape:export-xdpi="99"
+       inkscape:export-ydpi="99" />
   </g>
   <g
      inkscape:label="Capa 1"
@@ -106,9 +118,17 @@
      style="display:inline">
     <path
        style="fill:#3c3000;fill-opacity:0.40764334;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 53.214286,537.7193 -58.9285735,58.92857 0,580.08933 310.6250075,0 L 516.07143,965.57645 352.90178,818.12109 551.60714,619.41573 Z"
+       d="M 53.214286,537.7193 -3.18891,597.15295 c 0.7262525,153.08329 -25.926183,400.77611 14.300589,447.12805 3.957853,23.2335 256.559341,9.0913 416.153731,12.1219 L 516.07143,965.57646 352.90178,818.12109 551.60714,619.41573 Z"
        id="path4737"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccc" />
+    <rect
+       style="fill:none"
+       id="rect30"
+       width="445.13065"
+       height="122.22846"
+       x="-5.7142873"
+       y="1082.6667" />
   </g>
   <g
      inkscape:groupmode="layer"
