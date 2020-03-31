@@ -7,7 +7,7 @@ class ReportFileHistory(models.AbstractModel):
     _description = "report.archive_management.report_transfer_history"
 
     @api.model
-    def get_report_values(self, docids, data=None):
+    def _get_report_values(self, docids, data=None):
         res_model = data.get(
             "res_model", self.env.context.get("active_model", False)
         )
