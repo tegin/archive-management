@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -246,7 +246,7 @@ class ArchiveStorage(models.Model):
         )
         if parent.parent_id:
             res = parent.parent_id._position_vals(date)
-            res["storage_id"] = "%s/%s" % (self.name, res["storage_id"])
+            res["storage_id"] = "{}/{}".format(self.name, res["storage_id"])
         else:
             res = {
                 "storage_id": self.name,
