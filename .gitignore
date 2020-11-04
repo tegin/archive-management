@@ -26,7 +26,13 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
-d
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
 
 # Translations
 *.mo
