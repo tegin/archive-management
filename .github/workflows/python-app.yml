@@ -4,24 +4,23 @@
 name: Python application
 
 on:
-  push:
-    branches: [ 12.0 ]
-  pull_request:
-    branches: [ 12.0 ]
+    push:
+        branches: [12.0]
+    pull_request:
+        branches: [12.0]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7
-        postgresql: 9.6 
-    - name: Linting
-      run: |
-        pip install pre-commit
-        pre-commit run --all --show-diff-on-failure --verbose --color always
+        steps:
+            - uses: actions/checkout@v2
+            - name: Set up Python 3.8
+              uses: actions/setup-python@v2
+              with:
+                  python-version: 3.7
+                  postgresql: 9.6
+            - name: Linting
+              run: |
+                  pip install pre-commit
+                  pre-commit run --all --show-diff-on-failure --verbose --color always

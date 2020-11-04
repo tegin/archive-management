@@ -1,76 +1,78 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 -->
-
 <odoo>
     <record model="ir.ui.view" id="archive_repository_level_tree">
         <field name="name">archive.repository.level.tree</field>
         <field name="model">archive.repository.level</field>
-        <field name="priority" eval="16"/>
+        <field name="priority" eval="16" />
         <field name="arch" type="xml">
             <tree editable="bottom">
-                <field name="name"/>
-                <field name="level"/>
-                <field name="can_assign_files"/>
-                <field name="sequence_id"/>
+                <field name="name" />
+                <field name="level" />
+                <field name="can_assign_files" />
+                <field name="sequence_id" />
             </tree>
         </field>
     </record>
-
     <record model="ir.ui.view" id="archive_repository_tree">
         <field name="name">archive.repository.tree</field>
         <field name="model">archive.repository</field>
-        <field name="priority" eval="16"/>
+        <field name="priority" eval="16" />
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
+                <field name="name" />
             </tree>
         </field>
     </record>
-
     <record model="ir.ui.view" id="archive_repository_form">
         <field name="name">archive.repository.form</field>
         <field name="model">archive.repository</field>
-        <field name="priority" eval="16"/>
+        <field name="priority" eval="16" />
         <field name="arch" type="xml">
             <form string="Repository">
-                <header/>
+                <header />
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object"
-                                class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button"
-                                   options='{"terminology": "archive"}'/>
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options='{"terminology": "archive"}'
+                            />
                         </button>
                     </div>
                     <h2>
-                        <field name="name"/>
+                        <field name="name" />
                     </h2>
                     <group>
                         <group>
-                            <field name="expects_destruction"/>
-                            <field name="destruction_months"/>
-                            <field name="level_max_difference"/>
+                            <field name="expects_destruction" />
+                            <field name="destruction_months" />
+                            <field name="level_max_difference" />
                         </group>
                         <group>
-                            <field name="res_model_ids" widget="many2many_tags"/>
-                            <field name="sequence_id"/>
+                            <field name="res_model_ids" widget="many2many_tags" />
+                            <field name="sequence_id" />
                         </group>
                     </group>
                     <notebook>
                         <page id="level" string="Levels">
-                            <field name="repository_level_ids"/>
+                            <field name="repository_level_ids" />
                         </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
-
     <record model="ir.actions.act_window" id="archive_repository_action">
         <field name="name">Repositories</field>
         <field name="type">ir.actions.act_window</field>
@@ -78,11 +80,10 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-
     <menuitem
-            id="archive_repository_menu"
-            parent="archive_configuration"
-            action="archive_repository_action"
-            sequence="10"/>
-
+        id="archive_repository_menu"
+        parent="archive_configuration"
+        action="archive_repository_action"
+        sequence="10"
+    />
 </odoo>

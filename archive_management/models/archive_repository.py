@@ -1,4 +1,4 @@
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -58,7 +58,7 @@ class ArchiveRepositoryLevel(models.Model):
         res = []
         for name in names:
             rec = self.browse(name[0])
-            name = "[%s] %s" % (rec.repository_id.name, name[1])
+            name = "[{}] {}".format(rec.repository_id.name, name[1])
             res += [(rec.id, name)]
         return res
 

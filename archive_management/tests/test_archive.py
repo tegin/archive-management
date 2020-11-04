@@ -1,5 +1,5 @@
-from odoo.tests.common import TransactionCase
 from odoo.exceptions import ValidationError
+from odoo.tests.common import TransactionCase
 
 
 class TestArchiveManagementSystem(TransactionCase):
@@ -242,7 +242,7 @@ class TestArchiveManagementSystem(TransactionCase):
         new_storage = self.env["archive.storage"].create(
             {"repository_level_id": self.level_01.id}
         )
-        for i in range(1, 10):
+        for _i in range(1, 10):
             wizard = self.env["archive.storage.transfer.wizard"].create(
                 {
                     "transfer_type": "storage",
