@@ -1,39 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 -->
-
 <odoo>
-
-
     <record model="ir.ui.view" id="archive_file_transfer_wizard_form">
         <field name="name">archive.file.transfer.wizard.form</field>
         <field name="model">archive.file.transfer.wizard</field>
-        <field name="priority" eval="16"/>
+        <field name="priority" eval="16" />
         <field name="arch" type="xml">
             <form string="Move">
-                <header/>
+                <header />
                 <sheet>
-                    <field name="transfer_type" invisible="1"/>
-                    <field name="file_id" invisible="1"/>
-                    <field name="repository_id" invisible="1"/>
+                    <field name="transfer_type" invisible="1" />
+                    <field name="file_id" invisible="1" />
+                    <field name="repository_id" invisible="1" />
                     <group>
-                        <field name="dest_storage_id" attrs="{'invisible': [('transfer_type', '!=', 'storage')], 'required': [('transfer_type', '=', 'storage')]}" options="{'no_create': True}"/>
-                        <field name="dest_partner_id" attrs="{'invisible': [('transfer_type', '!=', 'partner')], 'required': [('transfer_type', '=', 'partner')]}"/>
+                        <field
+                            name="dest_storage_id"
+                            attrs="{'invisible': [('transfer_type', '!=', 'storage')], 'required': [('transfer_type', '=', 'storage')]}"
+                            options="{'no_create': True}"
+                        />
+                        <field
+                            name="dest_partner_id"
+                            attrs="{'invisible': [('transfer_type', '!=', 'partner')], 'required': [('transfer_type', '=', 'partner')]}"
+                        />
                     </group>
                 </sheet>
                 <footer>
-                    <button string="Transfer" name="run"
-                            type="object" default_focus="1" class="btn-primary"/>
-                    <button string="Cancel" class="btn-default" special="cancel"/>
+                    <button
+                        string="Transfer"
+                        name="run"
+                        type="object"
+                        default_focus="1"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
-
     <record model="ir.actions.act_window" id="archive_file_transfer_wizard_action">
         <field name="name">Files</field>
         <field name="type">ir.actions.act_window</field>
@@ -42,5 +49,4 @@
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
-
 </odoo>

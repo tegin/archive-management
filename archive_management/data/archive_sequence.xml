@@ -1,39 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 -->
-
 <odoo>
-
     <record id="seq_archive_storage" model="ir.sequence">
         <field name="name">Archive Storage sequence</field>
         <field name="code">archive.storage</field>
         <field name="prefix">AS</field>
         <field name="padding">8</field>
     </record>
-
     <record id="seq_archive_file" model="ir.sequence">
         <field name="name">Archive File sequence</field>
         <field name="code">archive.file</field>
         <field name="prefix">AF</field>
         <field name="padding">8</field>
     </record>
-
     <record id="seq_archive_location" model="ir.sequence">
         <field name="name">Archive Location sequence</field>
         <field name="code">archive.location</field>
         <field name="prefix">LC</field>
         <field name="padding">8</field>
     </record>
-
     <record id="seq_archive_multi_storage_transfer" model="ir.sequence">
         <field name="name">Archive Multi storage transfer sequence</field>
         <field name="code">archive.multi.storage.transfer</field>
         <field name="prefix">TR</field>
         <field name="padding">8</field>
     </record>
-
 </odoo>

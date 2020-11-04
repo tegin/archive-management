@@ -1,49 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!-- Copyright 2019 Creu Blanca
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
-
 <odoo>
-
     <record model="ir.ui.view" id="archive_multi_storage_transfer_wizard_form_view">
-        <field name="name">archive.multi.storage.transfer.wizard.form (in archive_management)</field>
+        <field
+            name="name"
+        >archive.multi.storage.transfer.wizard.form (in archive_management)</field>
         <field name="model">archive.multi.storage.transfer.wizard</field>
         <field name="arch" type="xml">
             <form string="Archive Multi Storage Transfer Wizard">
                 <group>
-                    <field name="repository_id" options="{'no_create': True}"/>
-                    <field name="original_location_id" options="{'no_create': True}"/>
-                    <field name="dest_location_id" options="{'no_create': True}"/>
+                    <field name="repository_id" options="{'no_create': True}" />
+                    <field name="original_location_id" options="{'no_create': True}" />
+                    <field name="dest_location_id" options="{'no_create': True}" />
                 </group>
-                <button name="populate"
-                        string="Populate"
-                        type="object"/>
-                <field name="storage_ids" options="{'no_create': True}"/>
+                <button name="populate" string="Populate" type="object" />
+                <field name="storage_ids" options="{'no_create': True}" />
                 <footer>
-                    <button name="run"
-                            string="Transfer"
-                            class="btn-primary"
-                            type="object"/>
-                    <button string="Cancel"
-                            class="btn-default"
-                            special="cancel"/>
+                    <button
+                        name="run"
+                        string="Transfer"
+                        class="btn-primary"
+                        type="object"
+                    />
+                    <button string="Cancel" class="btn-default" special="cancel" />
                 </footer>
             </form>
         </field>
     </record>
-
-    <record model="ir.actions.act_window" id="archive_multi_storage_transfer_wizard_act_window">
-        <field name="name">Archive Multi Storage Transfer Wizard</field> <!-- TODO -->
+    <record
+        model="ir.actions.act_window"
+        id="archive_multi_storage_transfer_wizard_act_window"
+    >
+        <field name="name">Archive Multi Storage Transfer Wizard</field>
+        <!-- TODO -->
         <field name="res_model">archive.multi.storage.transfer.wizard</field>
         <field name="view_mode">form</field>
         <field name="context">{}</field>
         <field name="target">new</field>
     </record>
-
-
     <record model="ir.ui.menu" id="archive_multi_storage_transfer_wizard_menu">
         <field name="name">Storage Transfer</field>
-        <field name="parent_id" ref="archive_root"/>
-        <field name="action" ref="archive_multi_storage_transfer_wizard_act_window"/>
-        <field name="sequence" eval="40"/>
+        <field name="parent_id" ref="archive_root" />
+        <field name="action" ref="archive_multi_storage_transfer_wizard_act_window" />
+        <field name="sequence" eval="40" />
     </record>
 </odoo>

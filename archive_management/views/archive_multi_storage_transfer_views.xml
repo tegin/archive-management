@@ -1,49 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     Copyright 2017 Eficent Business and IT Consulting Services, S.L.
     Copyright 2017 Creu Blanca
     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 -->
-
 <odoo>
-
     <record model="ir.ui.view" id="archive_multi_storage_transfer_tree">
         <field name="name">archive.multi.storage.transfer.tree</field>
         <field name="model">archive.multi.storage.transfer</field>
-        <field name="priority" eval="16"/>
+        <field name="priority" eval="16" />
         <field name="arch" type="xml">
             <tree create="false" delete="false">
-                <field name="name"/>
-                <field name="create_date"/>
+                <field name="name" />
+                <field name="create_date" />
             </tree>
         </field>
     </record>
-
     <record model="ir.ui.view" id="archive_multi_storage_transfer_form">
         <field name="name">archive.multi.storage.transfer.form</field>
         <field name="model">archive.multi.storage.transfer</field>
-        <field name="priority" eval="16"/>
+        <field name="priority" eval="16" />
         <field name="arch" type="xml">
             <form string="Transfer" create="false" delete="false" edit="false">
-                <header/>
+                <header />
                 <sheet>
                     <h2>
-                        <field name="name"/>
+                        <field name="name" />
                     </h2>
                     <group>
-                        <field name="dest_location_id" attrs="{'invisible': [('dest_location_id', '=', False)]}"/>
-                        <field name="dest_partner_id" attrs="{'invisible': [('dest_partner_id', '=', False)]}"/>
-                        <field name="dest_storage_id" attrs="{'invisible': [('dest_storage_id', '=', False)]}"/>
+                        <field
+                            name="dest_location_id"
+                            attrs="{'invisible': [('dest_location_id', '=', False)]}"
+                        />
+                        <field
+                            name="dest_partner_id"
+                            attrs="{'invisible': [('dest_partner_id', '=', False)]}"
+                        />
+                        <field
+                            name="dest_storage_id"
+                            attrs="{'invisible': [('dest_storage_id', '=', False)]}"
+                        />
                     </group>
                     <notebook>
                         <page name="transfer" string="Transfers">
                             <field name="transfer_ids">
                                 <tree>
-                                    <field name="storage_id"/>
-                                    <field name="src_location_id"/>
-                                    <field name="src_partner_id"/>
-                                    <field name="src_storage_id"/>
+                                    <field name="storage_id" />
+                                    <field name="src_location_id" />
+                                    <field name="src_partner_id" />
+                                    <field name="src_storage_id" />
                                 </tree>
                             </field>
                         </page>
@@ -52,7 +57,6 @@
             </form>
         </field>
     </record>
-
     <record model="ir.actions.act_window" id="archive_multi_storage_transfer_action">
         <field name="name">Transfers</field>
         <field name="type">ir.actions.act_window</field>
@@ -60,11 +64,10 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
-
     <menuitem
-            id="archive_multi_storage_transfer_menu"
-            parent="archive_root"
-            action="archive_multi_storage_transfer_action"
-            sequence="30"/>
-
+        id="archive_multi_storage_transfer_menu"
+        parent="archive_root"
+        action="archive_multi_storage_transfer_action"
+        sequence="30"
+    />
 </odoo>
