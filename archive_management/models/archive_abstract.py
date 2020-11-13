@@ -32,7 +32,7 @@ class ArchiveAbstract(models.AbstractModel):
     @api.multi
     def action_add_file(self):
         self.ensure_one()
-        action = self.env.ref("archive_management." "archive_file_add_action")
+        action = self.env.ref("archive_management.archive_file_add_action")
         result = action.read()[0]
         result["context"] = {
             "default_res_id": self.id,
@@ -42,7 +42,7 @@ class ArchiveAbstract(models.AbstractModel):
 
     @api.multi
     def action_view_files(self):
-        action = self.env.ref("archive_management." "archive_file_action")
+        action = self.env.ref("archive_management.archive_file_action")
         result = action.read()[0]
         result["domain"] = [
             ("res_model", "=", self._name),
