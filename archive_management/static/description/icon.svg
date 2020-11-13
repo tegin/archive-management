@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +12,7 @@
    viewBox="0 0 600.00001 600.00001"
    id="svg4165"
    version="1.1"
-   inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
+   inkscape:version="1.0.1 (1.0.1+r73)"
    enable-background="new"
    sodipodi:docname="icon.svg"
    inkscape:export-storagename="/home/etobella/pyworkspace/cb-addons/archive_management/static/description/icon.png"
@@ -41,25 +39,26 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994948"
-     inkscape:cx="408.41301"
-     inkscape:cy="371.1724"
+     inkscape:zoom="0.69999999"
+     inkscape:cx="-15.577465"
+     inkscape:cy="353.8046"
      inkscape:file-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1853"
-     inkscape:window-height="1025"
-     inkscape:window-x="67"
+     inkscape:window-width="1848"
+     inkscape:window-height="1016"
+     inkscape:window-x="1992"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:object-paths="true"
      inkscape:snap-intersection-paths="false"
      inkscape:object-nodes="false"
      inkscape:snap-nodes="true"
-     inkscape:snap-others="false">
+     inkscape:snap-others="false"
+     inkscape:document-rotation="0">
     <sodipodi:guide
        position="53.214287,514.64287"
        orientation="-0.70710678,0.70710678"
@@ -117,11 +116,11 @@
      transform="translate(0,-452.36216)"
      style="display:inline">
     <path
-       style="fill:#3c3000;fill-opacity:0.40764334;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 53.214286,537.7193 -3.18891,597.15295 c 0.7262525,153.08329 -25.926183,400.77611 14.300589,447.12805 3.957853,23.2335 256.559341,9.0913 416.153731,12.1219 L 516.07143,965.57646 352.90178,818.12109 551.60714,619.41573 Z"
+       style="fill:#3c3000;fill-opacity:0.407643;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 91.84029,559.83898 0.62283754,654.86975 c 0.26699956,-39.80799 -1.0939999,303.02219 -0.95853032,372.28425 0,0 9.71187818,26.0781 33.01641278,25.9527 324.90742,-1.7479 325.89684,-0.091 325.89662,-0.03 L 491.94541,923.29358 352.90178,818.12109 523.70932,630.58493 Z"
        id="path4737"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccc" />
+       sodipodi:nodetypes="cccsccccc" />
     <rect
        style="fill:none"
        id="rect30"
@@ -137,8 +136,8 @@
      style="display:inline">
     <path
        id="path4175"
-       d="m 76.000001,492 c 0,17.7 14.3,32 31.999999,32 l 384,0 c 17.7,0 32,-14.3 32,-32 l 0,-288 -447.999999,0 0,288 z M 236,280 c 0,-6.6 5.4,-12 12,-12 l 104,0 c 6.6,0 12,5.4 12,12 l 0,8 c 0,6.6 -5.4,12 -12,12 l -104,0 c -6.6,0 -12,-5.4 -12,-12 l 0,-8 z m 288,-204.000002 -447.999999,0 c -17.7,0 -31.999999,14.3 -31.999999,32.000002 l 0,48 c 0,8.8 7.200001,16 15.999999,16 L 540,172 c 8.8,0 16,-7.2 16,-16 l 0,-48 C 556,90.299998 541.7,75.999998 524,75.999998 Z"
+       d="m 111.97659,453.04396 c 0,15.14096 12.35602,27.37349 27.64983,27.37349 h 331.79793 c 15.29382,0 27.64983,-12.23253 27.64983,-27.37349 V 206.68254 H 111.97659 Z M 250.22573,271.69458 c 0,-5.64578 4.66591,-10.26506 10.36868,-10.26506 h 89.86195 c 5.70277,0 10.36868,4.61928 10.36868,10.26506 v 6.84337 c 0,5.64578 -4.66591,10.26506 -10.36868,10.26506 h -89.86195 c -5.70277,0 -10.36868,-4.61928 -10.36868,-10.26506 z M 499.07418,97.188569 H 111.97659 c -15.29381,0 -27.649828,12.232531 -27.649828,27.373491 v 41.06024 c 0,7.52771 6.221208,13.68674 13.824908,13.68674 H 512.8991 c 7.6037,0 13.82491,-6.15903 13.82491,-13.68674 v -41.06024 c 0,-15.14096 -12.35602,-27.373491 -27.64983,-27.373491 z"
        inkscape:connector-curvature="0"
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none" />
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.859729" />
   </g>
 </svg>
