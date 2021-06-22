@@ -21,7 +21,6 @@ class ArchiveMultiStorageTransferWizard(models.TransientModel):
             ("location_id", "=", self.original_location_id.id),
         ]
 
-    @api.multi
     def populate(self):
         domain = self._prepare_storage_domain()
         lines = self.env["archive.storage"].search(domain)
@@ -46,7 +45,6 @@ class ArchiveMultiStorageTransferWizard(models.TransientModel):
             "multi_transfer_id": multi_storage.id,
         }
 
-    @api.multi
     def run(self):
         self.ensure_one()
         if not self.storage_ids:
