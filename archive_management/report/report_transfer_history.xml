@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_transfer_history">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="12" />
+            <t t-set="data_report_header_spacing" t-value="9" />
+            <t t-set="data_report_dpi" t-value="110" />
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <div class="row">
+                        <h2 t-field="source.name" />
+                    </div>
+                    <table class="table" name="transfers">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Source</th>
+                                <th>Storage</th>
+                                <th>Location</th>
+                                <th>Partner</th>
+                                <th>User</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="docs" t-as="o">
+                                <td>
+                                    <span t-esc="o['date']" />
+                                </td>
+                                <td>
+                                    <span t-esc="o['source']" />
+                                </td>
+                                <td>
+                                    <span t-esc="o.get('storage_id')" />
+                                </td>
+                                <td>
+                                    <span t-esc="o.get('location_id')" />
+                                </td>
+                                <td>
+                                    <span t-esc="o.get('partner_id')" />
+                                </td>
+                                <td>
+                                    <span t-esc="o.get('user_id')" />
+                                </td>
+                                <td>
+                                    <span t-esc="o.get('message', False)" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+    <report
+        id="action_report_transfer_history_file"
+        model="archive.file"
+        string="Transfer history"
+        report_type="qweb-pdf"
+        menu="False"
+        name="archive_management.report_transfer_history"
+        file="archive_management.report_transfer_history"
+    />
+</odoo>
