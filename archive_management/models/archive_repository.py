@@ -20,7 +20,6 @@ class ArchiveRepository(models.Model):
     level_max_difference = fields.Integer(required=True, default=1)
     sequence_id = fields.Many2one("ir.sequence")
 
-    @api.multi
     def toggle_active(self):
         for repository in self.filtered(lambda r: r.active):
             if repository.storage_ids.filtered(lambda r: r.active):
@@ -62,7 +61,6 @@ class ArchiveRepositoryLevel(models.Model):
             res += [(rec.id, name)]
         return res
 
-    @api.multi
     @api.depends("repository_id")
     def name_get(self):
         """When the user is assigned to the multi-company group,

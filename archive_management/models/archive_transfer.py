@@ -11,7 +11,6 @@ class ArchiveFileTransfer(models.Model):
     src_partner_id = fields.Many2one("res.partner", readonly=True)
     dest_partner_id = fields.Many2one("res.partner", readonly=True)
 
-    @api.multi
     def get_transfer_report(self):
         self.ensure_one()
         res = {
@@ -74,7 +73,6 @@ class ArchiveStorageTransfer(models.Model):
     src_location_id = fields.Many2one("archive.location", readonly=True)
     dest_location_id = fields.Many2one("archive.location", readonly=True)
 
-    @api.multi
     def get_transfer_report(self):
         self.ensure_one()
         res = {

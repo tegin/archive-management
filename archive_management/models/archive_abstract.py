@@ -29,7 +29,6 @@ class ArchiveAbstract(models.AbstractModel):
                 )
             )
 
-    @api.multi
     def action_add_file(self):
         self.ensure_one()
         action = self.env.ref("archive_management.archive_file_add_action")
@@ -40,7 +39,6 @@ class ArchiveAbstract(models.AbstractModel):
         }
         return result
 
-    @api.multi
     def action_view_files(self):
         action = self.env.ref("archive_management.archive_file_action")
         result = action.read()[0]

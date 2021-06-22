@@ -77,7 +77,6 @@
         <field name="name">Repositories</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">archive.repository</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem

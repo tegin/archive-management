@@ -59,6 +59,7 @@ class ArchiveFile(models.Model):
                     .browse(file.res_id)
                     .name_get()[0][1]
                 )
+            return False
 
     @api.depends("parent_ids", "parent_ids.end_date")
     def _compute_parent(self):
@@ -110,7 +111,6 @@ class ArchiveFile(models.Model):
             rec._transfer(False)
         self.write(self._destroy_vals())
 
-    @api.multi
     def open_origin(self):
         self.ensure_one()
         vid = self.env[self.res_model].browse(self.res_id).get_formview_id()
@@ -125,7 +125,6 @@ class ArchiveFile(models.Model):
         }
         return response
 
-    @api.multi
     def get_transfers(self):
         self.ensure_one()
         data = [
@@ -154,7 +153,6 @@ class ArchiveFile(models.Model):
             )
         return data
 
-    @api.multi
     def print_transfer_history(self):
         return self.env.ref(
             "archive_management.action_report_transfer_history_file"
@@ -217,6 +215,5 @@ class ArchiveFileStorage(models.Model):
             res["end_transfer_id"] = transfer.id
         return res
 
-    @api.multi
     def close(self, transfer=False):
         self.write(self._close_vals(transfer))

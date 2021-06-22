@@ -4,7 +4,7 @@
 
 {
     "name": "Archive management system",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "author": "Eficent, Creu Blanca, Odoo Community Association (OCA)",
     "summary": "Based on ISO 15489",
     "category": "Medical",
