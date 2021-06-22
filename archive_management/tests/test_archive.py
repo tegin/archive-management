@@ -58,7 +58,7 @@ class TestArchiveManagementSystem(TransactionCase):
                 "res_id": partner.id,
             }
         )
-        self.assertIn(self.repo, action.repository_ids)
+        self.assertIn(self.repo.id, action.repository_ids.ids)
         action = action.create(action._convert_to_write(action._cache))
         doc = self.env["archive.file"].browse(action.run()["res_id"])
         self.assertEqual(doc.res, partner)
@@ -265,6 +265,7 @@ class TestArchiveManagementSystem(TransactionCase):
                     "dest_storage_id": self.storage_01.id,
                 }
             ).run()
+            storage.flush()
 
     def test_file_constrain_01(self):
         file = self.new_file()
