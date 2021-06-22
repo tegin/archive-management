@@ -187,7 +187,6 @@ class ArchiveStorage(models.Model):
                 {"child_id": self.id, "transfer_id": transfer.id}
             )
 
-    @api.multi
     def destroy(self):
         for rec in self:
             rec.file_ids.filtered(lambda r: not r.destruction_date).destroy()
@@ -195,7 +194,6 @@ class ArchiveStorage(models.Model):
             rec.child_ids.destroy()
         self.write(self._destroy_vals())
 
-    @api.multi
     def get_transfers(self, start_date=False, end_date=False):
         self.ensure_one()
         data = []
@@ -255,7 +253,6 @@ class ArchiveStorage(models.Model):
             }
         return res
 
-    @api.multi
     def print_transfer_history(self):
         return self.env.ref(
             "archive_management.action_report_transfer_history_file"
@@ -321,6 +318,5 @@ class ArchiveStorageParent(models.Model):
             res["end_transfer_id"] = transfer.id
         return res
 
-    @api.multi
     def close(self, transfer=False):
         self.write(self._close_vals(transfer))
