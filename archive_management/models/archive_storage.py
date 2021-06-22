@@ -91,7 +91,13 @@ class ArchiveStorage(models.Model):
                 _("Error! You are attempting to create a recursive storage.")
             )
 
-    @api.depends("parent_ids")
+    @api.depends(
+        "parent_ids",
+        "parent_ids.parent_id",
+        "parent_ids.partner_id",
+        "parent_ids.location_id",
+        "parent_ids.end_date",
+    )
     def _compute_parent(self):
         for rec in self:
             parent = rec.parent_ids.filtered(lambda r: not r.end_date)
