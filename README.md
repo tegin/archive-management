@@ -14,10 +14,10 @@ Follows ISO 15489
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[archive_management](archive_management/) | 13.0.1.0.0 | Based on ISO 15489
-[archive_management_demo](archive_management_demo/) | 13.0.1.0.0 | Based on ISO 15489
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[archive_management](archive_management/) | 13.0.1.0.0 |  | Based on ISO 15489
+[archive_management_demo](archive_management_demo/) | 13.0.1.0.0 |  | Based on ISO 15489
 
 [//]: # (end addons)
 
