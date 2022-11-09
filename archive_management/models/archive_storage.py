@@ -56,9 +56,7 @@ class ArchiveStorage(models.Model):
     current_location_id = fields.Many2one(
         "archive.location", store=True, compute="_compute_current_location"
     )
-    file_ids = fields.One2many(
-        "archive.file", inverse_name="storage_id", readonly=True
-    )
+    file_ids = fields.One2many("archive.file", inverse_name="storage_id", readonly=True)
     expected_destruction_date = fields.Datetime()
     destruction_date = fields.Datetime(readonly=True)
     destruction_user_id = fields.Many2one("res.users", readonly=True)
@@ -147,9 +145,7 @@ class ArchiveStorage(models.Model):
     @api.constrains("repository_id", "file_ids")
     def _check_repository_files(self):
         for rec in self:
-            if rec.file_ids.filtered(
-                lambda r: r.repository_id != rec.repository_id
-            ):
+            if rec.file_ids.filtered(lambda r: r.repository_id != rec.repository_id):
                 raise ValidationError(
                     _("Repository cannot be changed if files are assigned")
                 )
@@ -157,9 +153,7 @@ class ArchiveStorage(models.Model):
     @api.constrains("repository_id", "child_ids")
     def _check_repository_childs(self):
         for rec in self:
-            if rec.child_ids.filtered(
-                lambda r: r.repository_id != rec.repository_id
-            ):
+            if rec.child_ids.filtered(lambda r: r.repository_id != rec.repository_id):
                 raise ValidationError(
                     _("Repository cannot be changed if files are assigned")
                 )
@@ -167,13 +161,10 @@ class ArchiveStorage(models.Model):
     @api.constrains("repository_id", "storage_id")
     def _check_repository_storage(self):
         if self.filtered(
-            lambda r: r.storage_id
-            and r.storage_id.repository_id != r.repository_id
+            lambda r: r.storage_id and r.storage_id.repository_id != r.repository_id
         ):
             raise ValidationError(
-                _(
-                    "Repository cannot be changed if it is assigned to a storage"
-                )
+                _("Repository cannot be changed if it is assigned to a storage")
             )
 
     @api.model
@@ -216,15 +207,11 @@ class ArchiveStorage(models.Model):
             )
         for p in self.parent_ids.filtered(
             lambda r: (
-                not r.end_date
-                or fields.Datetime.from_string(r.end_date) >= start
+                not r.end_date or fields.Datetime.from_string(r.end_date) >= start
             )
             and fields.Datetime.from_string(r.start_date) <= end
         ):
-            if (
-                p.transfer_id
-                and fields.Datetime.from_string(p.start_date) >= start
-            ):
+            if p.transfer_id and fields.Datetime.from_string(p.start_date) >= start:
                 data.append(p.transfer_id.get_transfer_report())
             if p.parent_id:
                 data += p.parent_id.get_transfers(p.start_date, p.end_date)
@@ -243,8 +230,7 @@ class ArchiveStorage(models.Model):
         datetime = fields.Datetime.from_string(date)
         parent = self.parent_ids.filtered(
             lambda r: (
-                not r.end_date
-                or fields.Datetime.from_string(r.end_date) <= datetime
+                not r.end_date or fields.Datetime.from_string(r.end_date) <= datetime
             )
             and fields.Datetime.from_string(r.start_date) >= datetime
         )
@@ -281,42 +267,30 @@ class ArchiveStorageParent(models.Model):
         related="transfer_id.dest_location_id",
         readonly=True,
     )
-    start_date = fields.Datetime(
-        readonly=True, default=lambda r: fields.Datetime.now()
-    )
+    start_date = fields.Datetime(readonly=True, default=lambda r: fields.Datetime.now())
     transfer_id = fields.Many2one("archive.storage.transfer", readonly=True)
-    end_transfer_id = fields.Many2one(
-        "archive.storage.transfer", readonly=True
-    )
+    end_transfer_id = fields.Many2one("archive.storage.transfer", readonly=True)
     end_date = fields.Datetime(readonly=True)
 
     @api.constrains("child_id", "transfer_id")
     def _check_transfer(self):
         for rec in self.filtered(lambda r: r.transfer_id):
             if rec.transfer_id.storage_id != rec.child_id:
-                raise ValidationError(
-                    _("Storage of the transfer must coincide")
-                )
+                raise ValidationError(_("Storage of the transfer must coincide"))
 
     @api.constrains("child_id", "transfer_id", "end_transfer_id")
     def _check_end_transfer(self):
-        for rec in self.filtered(
-            lambda r: r.end_transfer_id and r.transfer_id
-        ):
+        for rec in self.filtered(lambda r: r.end_transfer_id and r.transfer_id):
             transfer = rec.transfer_id
             end = rec.end_transfer_id
             if end.src_storage_id != transfer.dest_storage_id:
-                raise ValidationError(
-                    _("Storage of the ending transfer must coincide")
-                )
+                raise ValidationError(_("Storage of the ending transfer must coincide"))
             if end.src_location_id != transfer.dest_location_id:
                 raise ValidationError(
                     _("Location of the ending transfer must coincide")
                 )
             if end.src_partner_id != transfer.dest_partner_id:
-                raise ValidationError(
-                    _("Partner of the ending transfer must coincide")
-                )
+                raise ValidationError(_("Partner of the ending transfer must coincide"))
 
     def _close_vals(self, transfer):
         res = {"end_date": fields.Datetime.now()}

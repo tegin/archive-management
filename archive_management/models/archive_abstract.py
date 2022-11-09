@@ -5,9 +5,7 @@ class ArchiveAbstract(models.AbstractModel):
     _name = "archive.abstract"
     _description = "archive.abstract"
 
-    file_ids = fields.One2many(
-        "archive.file", compute="_compute_repository_files"
-    )
+    file_ids = fields.One2many("archive.file", compute="_compute_repository_files")
     file_count = fields.Integer(compute="_compute_repository_files")
     pending_archive_file = fields.Boolean(compute="_compute_repository_files")
 

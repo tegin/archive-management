@@ -8,9 +8,7 @@ class TestArchiveManagementSystem(TransactionCase):
         self.repo = self.env["archive.repository"].create(
             {
                 "name": "Repo",
-                "res_model_ids": [
-                    (4, self.browse_ref("base.model_res_partner").id)
-                ],
+                "res_model_ids": [(4, self.browse_ref("base.model_res_partner").id)],
                 "level_max_difference": 2,
             }
         )
@@ -28,12 +26,8 @@ class TestArchiveManagementSystem(TransactionCase):
         self.level_03 = self.env["archive.repository.level"].create(
             {"name": "Box", "level": 3, "repository_id": self.repo.id}
         )
-        self.location_01 = self.env["archive.location"].create(
-            {"description": "LOC1"}
-        )
-        self.location_02 = self.env["archive.location"].create(
-            {"description": "LOC2"}
-        )
+        self.location_01 = self.env["archive.location"].create({"description": "LOC1"})
+        self.location_02 = self.env["archive.location"].create({"description": "LOC2"})
         self.storage_01 = self.env["archive.storage"].create(
             {"repository_level_id": self.level_01.id}
         )
@@ -66,16 +60,14 @@ class TestArchiveManagementSystem(TransactionCase):
 
     def get_view(self, file):
         action = file.open_origin()
-        result = self.env[action.get("res_model")].load_views(
-            action.get("views")
-        )
+        result = self.env[action.get("res_model")].load_views(action.get("views"))
         return result.get("fields_views").get(action.get("view_mode"))
 
     def test_open_origin_res_partner(self):
-        """ This test case checks
-                - If the method redirects to the form view of the correct one
-                of an object of the 'res.partner' class to which the activity
-                belongs.
+        """This test case checks
+        - If the method redirects to the form view of the correct one
+        of an object of the 'res.partner' class to which the activity
+        belongs.
         """
         file = self.new_file(partner=self.partner)
 
@@ -270,26 +262,20 @@ class TestArchiveManagementSystem(TransactionCase):
     def test_file_constrain_01(self):
         file = self.new_file()
         file_2 = self.new_file(partner=self.archiving_partner)
-        transfer = self.env["archive.file.transfer"].create(
-            {"file_id": file_2.id}
-        )
+        transfer = self.env["archive.file.transfer"].create({"file_id": file_2.id})
         with self.assertRaises(ValidationError):
             file._transfer(transfer)
 
     def test_file_constrain_02(self):
         file = self.new_file()
         file_2 = self.new_file(partner=self.archiving_partner)
-        transfer = self.env["archive.file.transfer"].create(
-            {"file_id": file_2.id}
-        )
+        transfer = self.env["archive.file.transfer"].create({"file_id": file_2.id})
         with self.assertRaises(ValidationError):
             file.parent_id.write({"transfer_id": transfer.id})
 
     def test_file_constrain_03(self):
         file = self.new_file()
-        transfer = self.env["archive.file.transfer"].create(
-            {"file_id": file.id}
-        )
+        transfer = self.env["archive.file.transfer"].create({"file_id": file.id})
         file._transfer(transfer)
         transfer_2 = self.env["archive.file.transfer"].create(
             {"file_id": file.id, "src_storage_id": self.storage_01.id}
@@ -299,9 +285,7 @@ class TestArchiveManagementSystem(TransactionCase):
 
     def test_file_constrain_04(self):
         file = self.new_file()
-        transfer = self.env["archive.file.transfer"].create(
-            {"file_id": file.id}
-        )
+        transfer = self.env["archive.file.transfer"].create({"file_id": file.id})
         file._transfer(transfer)
         transfer_2 = self.env["archive.file.transfer"].create(
             {"file_id": file.id, "src_partner_id": self.partner.id}

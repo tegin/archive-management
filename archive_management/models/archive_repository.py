@@ -24,10 +24,7 @@ class ArchiveRepository(models.Model):
         for repository in self.filtered(lambda r: r.active):
             if repository.storage_ids.filtered(lambda r: r.active):
                 raise ValidationError(
-                    _(
-                        "Repositories should have no storages in order "
-                        "to be archived"
-                    )
+                    _("Repositories should have no storages in order " "to be archived")
                 )
         return super().toggle_active()
 
@@ -37,9 +34,7 @@ class ArchiveRepositoryLevel(models.Model):
     _description = "archive.repository.level"
     _order = "repository_id, level"
 
-    repository_id = fields.Many2one(
-        "archive.repository", required=True, readonly=True
-    )
+    repository_id = fields.Many2one("archive.repository", required=True, readonly=True)
     name = fields.Char(required=True)
     level = fields.Integer(required=True, default=1)
     can_assign_files = fields.Boolean(default=False)

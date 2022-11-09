@@ -31,9 +31,7 @@ class ArchiveFileAdd(models.TransientModel):
                 )
                 .mapped("repository_id")
             )
-            res_model = self.env["ir.model"].search(
-                [("model", "=", record.res_model)]
-            )
+            res_model = self.env["ir.model"].search([("model", "=", record.res_model)])
             record.repository_ids = self.env["archive.repository"].search(
                 [
                     ("res_model_ids", "=", res_model.id),

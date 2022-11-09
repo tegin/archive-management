@@ -8,14 +8,10 @@ class ReportFileHistory(models.AbstractModel):
 
     @api.model
     def _get_report_values(self, docids, data=None):
-        res_model = data.get(
-            "res_model", self.env.context.get("active_model", False)
-        )
+        res_model = data.get("res_model", self.env.context.get("active_model", False))
         if not res_model:
             raise UserError(_("Model is required"))
-        source = self.env[res_model].browse(
-            self.env.context.get("active_ids", False)
-        )
+        source = self.env[res_model].browse(self.env.context.get("active_ids", False))
         source.ensure_one()
         res = {
             "doc_ids": source.ids,
