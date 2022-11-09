@@ -4,8 +4,8 @@
 
 {
     "name": "Archive management demo",
-    "version": "13.0.1.0.0",
-    "author": "Eficent, Creu Blanca, Odoo Community Association (OCA)",
+    "version": "14.0.1.0.0",
+    "author": "Eficent, CreuBlanca, Odoo Community Association (OCA)",
     "summary": "Based on ISO 15489",
     "category": "Medical",
     "depends": ["archive_management"],
