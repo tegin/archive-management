@@ -39,9 +39,7 @@ class ArchiveFileTransferWizard(models.TransientModel):
         }
 
     def _run(self):
-        transfer = self.env["archive.file.transfer"].create(
-            self._transfer_vals()
-        )
+        transfer = self.env["archive.file.transfer"].create(self._transfer_vals())
         self.file_id._transfer(transfer)
         return transfer
 

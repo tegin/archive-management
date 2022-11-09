@@ -26,8 +26,7 @@ class ArchiveMultiStorageTransferWizard(models.TransientModel):
         lines = self.env["archive.storage"].search(domain)
         self.storage_ids = lines
         action = self.env.ref(
-            "archive_management."
-            "archive_multi_storage_transfer_wizard_act_window"
+            "archive_management." "archive_multi_storage_transfer_wizard_act_window"
         )
         result = action.read()[0]
         result["res_id"] = self.id

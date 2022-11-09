@@ -5,9 +5,7 @@ class ArchiveStorageTransferWizard(models.TransientModel):
     _name = "archive.storage.transfer.wizard"
     _description = "archive.storage.transfer.wizard"
 
-    storage_id = fields.Many2one(
-        "archive.storage", required=True, readonly=True
-    )
+    storage_id = fields.Many2one("archive.storage", required=True, readonly=True)
     repository_id = fields.Many2one(
         "archive.repository", related="storage_id.repository_id", readonly=True
     )
@@ -37,9 +35,7 @@ class ArchiveStorageTransferWizard(models.TransientModel):
     def _compute_level(self):
         for r in self:
             r.min_level = r.storage_id.level + 1
-            r.max_level = (
-                r.storage_id.level + r.repository_id.level_max_difference
-            )
+            r.max_level = r.storage_id.level + r.repository_id.level_max_difference
 
     @api.onchange("transfer_type")
     def _onchange_transfer_type(self):
@@ -60,9 +56,7 @@ class ArchiveStorageTransferWizard(models.TransientModel):
         }
 
     def _run(self):
-        transfer = self.env["archive.storage.transfer"].create(
-            self._transfer_vals()
-        )
+        transfer = self.env["archive.storage.transfer"].create(self._transfer_vals())
         self.storage_id._transfer(transfer)
         return transfer
 

@@ -35,9 +35,7 @@ class ArchiveFile(models.Model):
     partner_id = fields.Many2one(
         "res.partner", compute="_compute_parent", store=True, readonly=True
     )
-    repository_id = fields.Many2one(
-        "archive.repository", required=True, readonly=True
-    )
+    repository_id = fields.Many2one("archive.repository", required=True, readonly=True)
     expected_destruction_date = fields.Datetime()
     destruction_date = fields.Datetime(readonly=True)
     destruction_user_id = fields.Many2one("res.users", readonly=True)
@@ -55,9 +53,7 @@ class ArchiveFile(models.Model):
         for file in self:
             if file.res_model:
                 file.res_name = (
-                    self.env[file.res_model]
-                    .browse(file.res_id)
-                    .name_get()[0][1]
+                    self.env[file.res_model].browse(file.res_id).name_get()[0][1]
                 )
             return False
 
@@ -170,9 +166,7 @@ class ArchiveFileStorage(models.Model):
     partner_id = fields.Many2one(
         "res.partner", related="transfer_id.dest_partner_id", readonly=True
     )
-    start_date = fields.Datetime(
-        readonly=True, default=lambda r: fields.Datetime.now()
-    )
+    start_date = fields.Datetime(readonly=True, default=lambda r: fields.Datetime.now())
     transfer_id = fields.Many2one("archive.file.transfer", readonly=True)
     end_transfer_id = fields.Many2one("archive.file.transfer", readonly=True)
     end_date = fields.Datetime(readonly=True)
@@ -186,28 +180,19 @@ class ArchiveFileStorage(models.Model):
     @api.constrains("file_id", "end_transfer_id")
     def _check_end_transfer(self):
         if self.filtered(
-            lambda r: r.end_transfer_id
-            and r.end_transfer_id.file_id != r.file_id
+            lambda r: r.end_transfer_id and r.end_transfer_id.file_id != r.file_id
         ):
-            raise ValidationError(
-                _("File of the ending transfer must coincide")
-            )
+            raise ValidationError(_("File of the ending transfer must coincide"))
 
     @api.constrains("file_id", "transfer_id", "end_transfer_id")
     def _check_transfer_end_transfer(self):
-        for rec in self.filtered(
-            lambda r: r.end_transfer_id and r.transfer_id
-        ):
+        for rec in self.filtered(lambda r: r.end_transfer_id and r.transfer_id):
             transfer = rec.transfer_id
             end = rec.end_transfer_id
             if end.src_storage_id != transfer.dest_storage_id:
-                raise ValidationError(
-                    _("storage of the ending transfer must coincide")
-                )
+                raise ValidationError(_("storage of the ending transfer must coincide"))
             if end.src_partner_id != transfer.dest_partner_id:
-                raise ValidationError(
-                    _("Partner of the ending transfer must coincide")
-                )
+                raise ValidationError(_("Partner of the ending transfer must coincide"))
 
     def _close_vals(self, transfer):
         res = {"end_date": fields.Datetime.now()}

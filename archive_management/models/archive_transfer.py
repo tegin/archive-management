@@ -49,9 +49,7 @@ class ArchiveMultiStorageTransfer(models.Model):
     @api.model
     def default_multi_storage_transfer_name(self, vals):
         return (
-            self.env["ir.sequence"].next_by_code(
-                "archive.multi.storage.transfer"
-            )
+            self.env["ir.sequence"].next_by_code("archive.multi.storage.transfer")
             or "/"
         )
 
@@ -63,9 +61,7 @@ class ArchiveStorageTransfer(models.Model):
     multi_transfer_id = fields.Many2one(
         "archive.multi.storage.transfer", readonly=True, ondelete="restrict"
     )
-    storage_id = fields.Many2one(
-        "archive.storage", required=True, readonly=True
-    )
+    storage_id = fields.Many2one("archive.storage", required=True, readonly=True)
     src_storage_id = fields.Many2one("archive.storage", readonly=True)
     dest_storage_id = fields.Many2one("archive.storage", readonly=True)
     src_partner_id = fields.Many2one("res.partner", readonly=True)

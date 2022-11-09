@@ -4,12 +4,12 @@
 
 {
     "name": "Archive management system",
-    "version": "13.0.1.0.0",
-    "author": "Eficent, Creu Blanca, Odoo Community Association (OCA)",
+    "version": "14.0.1.0.0",
+    "author": "Eficent, CreuBlanca, Odoo Community Association (OCA)",
     "summary": "Based on ISO 15489",
     "category": "Medical",
     "depends": ["mail"],
-    "website": "https://github.com/OCA/vertical-medical",
+    "website": "https://github.com/tegin/archive-management",
     "license": "LGPL-3",
     "data": [
         "security/archive_security.xml",
