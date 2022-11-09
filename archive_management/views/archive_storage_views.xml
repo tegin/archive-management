@@ -44,7 +44,7 @@
                             class="oe_stat_button"
                             icon="fa-folder-open"
                             string="Move to a storage"
-                            context="{'default_transfer_type': 'storage', 'default_storage_id': active_id}"
+                            context="{'default_transfer_type': 'storage', 'default_storage_id': id}"
                             attrs="{'invisible': [('destruction_date', '!=', False)]}"
                             groups="archive_management.group_archive_user"
                         />
@@ -54,7 +54,7 @@
                             class="oe_stat_button"
                             icon="fa-building"
                             string="Move to a location"
-                            context="{'default_transfer_type': 'location', 'default_storage_id': active_id}"
+                            context="{'default_transfer_type': 'location', 'default_storage_id': id}"
                             attrs="{'invisible': [('destruction_date', '!=', False)]}"
                             groups="archive_management.group_archive_user"
                         />
@@ -64,7 +64,7 @@
                             class="oe_stat_button"
                             icon="fa-user-circle"
                             string="Give to a Partner"
-                            context="{'default_transfer_type': 'partner', 'default_storage_id': active_id}"
+                            context="{'default_transfer_type': 'partner', 'default_storage_id': id}"
                             attrs="{'invisible': [('destruction_date', '!=', False)]}"
                             groups="archive_management.group_archive_user"
                         />
