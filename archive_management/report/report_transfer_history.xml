@@ -52,13 +52,12 @@
             </t>
         </t>
     </template>
-    <report
-        id="action_report_transfer_history_file"
-        model="archive.file"
-        string="Transfer history"
-        report_type="qweb-pdf"
-        menu="False"
-        name="archive_management.report_transfer_history"
-        file="archive_management.report_transfer_history"
-    />
+    <record id="action_report_transfer_history_file" model="ir.actions.report">
+        <field name="model">archive.file"</field>
+        <field name="name">Transfer history</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" eval="False" />
+        <field name="report_name">archive_management.report_transfer_history</field>
+        <field name="report_file">archive_management.report_transfer_history</field>
+        </record>
 </odoo>
