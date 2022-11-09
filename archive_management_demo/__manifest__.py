@@ -9,7 +9,7 @@
     "summary": "Based on ISO 15489",
     "category": "Medical",
     "depends": ["archive_management"],
-    "website": "https://github.com/OCA/vertical-medical",
+    "website": "https://github.com/tegin/archive-management",
     "license": "LGPL-3",
     "data": ["data/archive_demo_data.xml", "views/res_partner_views.xml"],
     "installable": True,
