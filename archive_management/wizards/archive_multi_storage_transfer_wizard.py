@@ -25,10 +25,9 @@ class ArchiveMultiStorageTransferWizard(models.TransientModel):
         domain = self._prepare_storage_domain()
         lines = self.env["archive.storage"].search(domain)
         self.storage_ids = lines
-        action = self.env.ref(
+        result = self.env["ir.actions.act_window"]._for_xml_id(
             "archive_management." "archive_multi_storage_transfer_wizard_act_window"
         )
-        result = action.read()[0]
         result["res_id"] = self.id
         return result
 
@@ -56,10 +55,9 @@ class ArchiveMultiStorageTransferWizard(models.TransientModel):
                 self._transfer_vals(storage, multi_storage)
             )
             storage._transfer(transfer)
-        action = self.env.ref(
+        result = self.env["ir.actions.act_window"]._for_xml_id(
             "archive_management.archive_multi_storage_transfer_action"
         )
-        result = action.read()[0]
         result["res_id"] = multi_storage.id
         result["views"] = [(False, "form")]
         return result
