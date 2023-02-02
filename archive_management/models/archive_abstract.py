@@ -29,8 +29,9 @@ class ArchiveAbstract(models.AbstractModel):
 
     def action_add_file(self):
         self.ensure_one()
-        action = self.env.ref("archive_management.archive_file_add_action")
-        result = action.read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "archive_management.archive_file_add_action"
+        )
         result["context"] = {
             "default_res_id": self.id,
             "default_res_model": self._name,
@@ -38,8 +39,9 @@ class ArchiveAbstract(models.AbstractModel):
         return result
 
     def action_view_files(self):
-        action = self.env.ref("archive_management.archive_file_action")
-        result = action.read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "archive_management.archive_file_action"
+        )
         result["domain"] = [
             ("res_model", "=", self._name),
             ("res_id", "in", self.ids),
