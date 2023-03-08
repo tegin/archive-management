@@ -17,10 +17,9 @@ odoo_version: 16.0
 org_name: CreuBlanca
 org_slug: tegin
 rebel_module_groups: []
-repo_description: ''
-repo_name: ''
+repo_description: ""
+repo_name: ""
 repo_slug: archive-management
 repo_website: https://github.com/tegin/archive-management
 use_pyproject_toml: false
 use_ruff: false
-
