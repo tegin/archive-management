@@ -52,8 +52,9 @@ class ArchiveFileAdd(models.TransientModel):
     def run(self):
         self.ensure_one()
         doc = self._run()
-        action = self.env.ref("archive_management.archive_file_action")
-        result = action.read()[0]
+        result = self.env["ir.actions.act_window"]._for_xml_id(
+            "archive_management.archive_file_action"
+        )
         res = self.env.ref("archive_management.archive_file_form", False)
         result["views"] = [(res and res.id or False, "form")]
         result["res_id"] = doc.id
