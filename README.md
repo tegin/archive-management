@@ -1,15 +1,15 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
-[![Pre-commit Status](https://github.com/tegin/archive-management/actions/workflows/pre-commit.yml/badge.svg?branch=14.0)](https://github.com/tegin/archive-management/actions/workflows/pre-commit.yml?query=branch%3A14.0)
-[![Build Status](https://github.com/tegin/archive-management/actions/workflows/test.yml/badge.svg?branch=14.0)](https://github.com/tegin/archive-management/actions/workflows/test.yml?query=branch%3A14.0)
-[![codecov](https://codecov.io/gh/tegin/archive-management/branch/14.0/graph/badge.svg)](https://codecov.io/gh/tegin/archive-management)
+[![Pre-commit Status](https://github.com/tegin/archive-management/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/tegin/archive-management/actions/workflows/pre-commit.yml?query=branch%3A16.0)
+[![Build Status](https://github.com/tegin/archive-management/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/tegin/archive-management/actions/workflows/test.yml?query=branch%3A16.0)
+[![codecov](https://codecov.io/gh/tegin/archive-management/branch/16.0/graph/badge.svg)](https://codecov.io/gh/tegin/archive-management)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
 
-# archive_management
+# 
 
-None
+
 
 <!-- /!\ do not modify below this line -->
 
