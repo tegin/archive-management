@@ -70,13 +70,14 @@ class ArchiveFile(models.Model):
         self.ensure_one()
         return self.env[self.res_model].browse(self.res_id)
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", "/") == "/":
-            vals["name"] = self.default_archive_name(vals)
-        if not vals.get("parent_ids", False):
-            vals["parent_ids"] = [(0, 0, {})]
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", "/") == "/":
+                vals["name"] = self.default_archive_name(vals)
+            if not vals.get("parent_ids", False):
+                vals["parent_ids"] = [(0, 0, {})]
+        return super().create(vals_list)
 
     @api.model
     def default_archive_name(self, vals):

@@ -40,11 +40,12 @@ class ArchiveMultiStorageTransfer(models.Model):
     dest_partner_id = fields.Many2one("res.partner", readonly=True)
     dest_storage_id = fields.Many2one("archive.storage", readonly=True)
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", "/") == "/":
-            vals["name"] = self.default_multi_storage_transfer_name(vals)
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", "/") == "/":
+                vals["name"] = self.default_multi_storage_transfer_name(vals)
+        return super().create(vals_list)
 
     @api.model
     def default_multi_storage_transfer_name(self, vals):

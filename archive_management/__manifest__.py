@@ -4,7 +4,7 @@
 
 {
     "name": "Archive management system",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "author": "Eficent, CreuBlanca, Odoo Community Association (OCA)",
     "summary": "Based on ISO 15489",
     "category": "Medical",

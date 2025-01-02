@@ -52,9 +52,13 @@ class ArchiveStorage(models.Model):
         compute="_compute_current_partner",
         store=True,
         readonly=True,
+        recursive=True,
     )
     current_location_id = fields.Many2one(
-        "archive.location", store=True, compute="_compute_current_location"
+        "archive.location",
+        store=True,
+        compute="_compute_current_location",
+        recursive=True,
     )
     file_ids = fields.One2many("archive.file", inverse_name="storage_id", readonly=True)
     expected_destruction_date = fields.Datetime()
@@ -125,13 +129,14 @@ class ArchiveStorage(models.Model):
         for r in self:
             r.active = not (r.state == "destroyed")
 
-    @api.model
-    def create(self, vals):
-        if vals.get("name", "/") == "/":
-            vals["name"] = self.default_archive_name(vals)
-        if not vals.get("parent_ids", False):
-            vals["parent_ids"] = [(0, 0, {})]
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("name", "/") == "/":
+                vals["name"] = self.default_archive_name(vals)
+            if not vals.get("parent_ids", False):
+                vals["parent_ids"] = [(0, 0, {})]
+        return super().create(vals_list)
 
     @api.model
     def default_archive_name(self, vals):
