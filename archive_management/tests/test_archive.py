@@ -60,7 +60,7 @@ class TestArchiveManagementSystem(TransactionCase):
 
     def get_view(self, file):
         action = file.open_origin()
-        result = self.env[action.get("res_model")].load_views(action.get("views"))
+        result = self.env[action.get("res_model")].get_views(action.get("views"))
         return result.get("fields_views").get(action.get("view_mode"))
 
     def test_open_origin_res_partner(self):
