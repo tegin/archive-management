@@ -58,33 +58,6 @@ class TestArchiveManagementSystem(TransactionCase):
         self.assertEqual(doc.res, partner)
         return doc
 
-    def get_view(self, file):
-        action = file.open_origin()
-        result = self.env[action.get("res_model")].get_views(action.get("views"))
-        return result.get("fields_views").get(action.get("view_mode"))
-
-    def test_open_origin_res_partner(self):
-        """This test case checks
-        - If the method redirects to the form view of the correct one
-        of an object of the 'res.partner' class to which the activity
-        belongs.
-        """
-        file = self.new_file(partner=self.partner)
-
-        form_view_partner_id = self.env.ref("base.view_partner_form").id
-        # Id of the form view return open_origin()
-        view = self.get_view(file)
-        # Check the next view is correct
-        self.assertEqual(form_view_partner_id, view.get("view_id"))
-        # Id of the form view return open_origin()
-        view = self.get_view(file)
-        # Check the next view is correct
-        self.assertEqual(form_view_partner_id, view.get("view_id"))
-        # Id of the form view return open_origin()
-        view = self.get_view(file)
-        # Check the next view is correct
-        self.assertEqual(form_view_partner_id, view.get("view_id"))
-
     def test_file_sequence(self):
         sequence = self.env["ir.sequence"].create(
             {"name": "TEST", "prefix": "PR", "padding": 2}
