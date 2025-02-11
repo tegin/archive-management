@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="demo_repository" model="archive.repository">
+        <field name="name">Demo repository</field>
+        <field name="res_model_ids" eval="[(4, ref('base.model_res_partner'))]" />
+    </record>
+    <record id="demo_repository_subseries" model="archive.repository.level">
+        <field name="repository_id" ref="demo_repository" />
+        <field name="name">Sub-series</field>
+        <field name="level">1</field>
+        <field name="can_assign_files" eval="True" />
+    </record>
+    <record id="demo_repository_series" model="archive.repository.level">
+        <field name="repository_id" ref="demo_repository" />
+        <field name="name">Series</field>
+        <field name="level">2</field>
+    </record>
+    <record id="demo_location_1" model="archive.location">
+        <field name="description">General Archive</field>
+    </record>
+    <record id="demo_location_2" model="archive.location">
+        <field name="description">Department Archive</field>
+    </record>
+</odoo>

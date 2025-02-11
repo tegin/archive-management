@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2017 Eficent Business and IT Consulting Services, S.L.
+    Copyright 2017 Creu Blanca
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+-->
+<odoo>
+    <record model="ir.ui.view" id="archive_storage_tree">
+        <field name="name">archive.storage.tree</field>
+        <field name="model">archive.storage</field>
+        <field name="priority" eval="16" />
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="repository_id" />
+                <field name="repository_level_id" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="archive_storage_form">
+        <field name="name">archive.storage.form</field>
+        <field name="model">archive.storage</field>
+        <field name="priority" eval="16" />
+        <field name="arch" type="xml">
+            <form string="storage">
+                <header>
+                    <field name="state" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="destroy"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-fire"
+                            string="Destroy"
+                            attrs="{'invisible': [('destruction_date', '!=', False)]}"
+                            groups="archive_management.group_archive_user"
+                        />
+                        <button
+                            name="%(archive_storage_transfer_wizard_action)s"
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-folder-open"
+                            string="Move to a storage"
+                            context="{'default_transfer_type': 'storage', 'default_storage_id': id}"
+                            attrs="{'invisible': [('destruction_date', '!=', False)]}"
+                            groups="archive_management.group_archive_user"
+                        />
+                        <button
+                            name="%(archive_storage_transfer_wizard_action)s"
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-building"
+                            string="Move to a location"
+                            context="{'default_transfer_type': 'location', 'default_storage_id': id}"
+                            attrs="{'invisible': [('destruction_date', '!=', False)]}"
+                            groups="archive_management.group_archive_user"
+                        />
+                        <button
+                            name="%(archive_storage_transfer_wizard_action)s"
+                            type="action"
+                            class="oe_stat_button"
+                            icon="fa-user-circle"
+                            string="Give to a Partner"
+                            context="{'default_transfer_type': 'partner', 'default_storage_id': id}"
+                            attrs="{'invisible': [('destruction_date', '!=', False)]}"
+                            groups="archive_management.group_archive_user"
+                        />
+                        <button
+                            name="print_transfer_history"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-print"
+                            string="Print"
+                            groups="archive_management.group_archive_user"
+                        />
+                    </div>
+                    <h2>
+                        <field name="name" />
+                    </h2>
+                    <group>
+                        <group>
+                            <field name="repository_level_id" widget="selection" />
+                            <field name="storage_id" />
+                            <field name="partner_id" />
+                            <field name="current_location_id" />
+                        </group>
+                        <group>
+                            <field name="expected_destruction_date" />
+                            <field name="destruction_date" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="archive_storage_search" model="ir.ui.view">
+        <field name="name">archive.storage.view.search</field>
+        <field name="model">archive.storage</field>
+        <field name="arch" type="xml">
+            <search string="Storage">
+                <field name="name" />
+                <field name="storage_id" />
+                <field name="location_id" />
+                <field name="partner_id" />
+                <filter
+                    string="Draft"
+                    name="draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    string="On Place"
+                    name="on_place"
+                    domain="[('state', '=', 'on_place')]"
+                />
+                <filter
+                    string="Destroyed"
+                    name="destroyed"
+                    domain="[('state', '=', 'destroyed')]"
+                />
+            </search>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="archive_storage_action">
+        <field name="name">Storages</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">archive.storage</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="archive_storage_menu"
+        parent="archive_root"
+        action="archive_storage_action"
+        sequence="20"
+    />
+</odoo>
