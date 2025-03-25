@@ -10,7 +10,9 @@ class ArchiveAbstract(models.AbstractModel):
     pending_archive_file = fields.Boolean(compute="_compute_repository_files")
 
     def _compute_repository_files(self):
-        res_model = self.env["ir.model"].search([("model", "=", self._name)])
+        res_model_id = (
+            self.env["ir.model"].sudo().search([("model", "=", self._name)]).id
+        )
         for r in self:
             files = self.env["archive.file"].search(
                 [("res_id", "=", r.id), ("res_model", "=", self._name)]
@@ -21,7 +23,7 @@ class ArchiveAbstract(models.AbstractModel):
             r.pending_archive_file = bool(
                 self.env["archive.repository"].search(
                     [
-                        ("res_model_ids", "=", res_model.id),
+                        ("res_model_ids", "=", res_model_id),
                         ("id", "not in", repos.ids),
                     ]
                 )
