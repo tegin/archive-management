@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.27
+_commit: v1.29
 _src_path: https://github.com/OCA/oca-addons-repo-template.git
 ci: GitHub
 convert_readme_fragments_to_markdown: false
@@ -17,9 +17,10 @@ odoo_version: 16.0
 org_name: CreuBlanca
 org_slug: tegin
 rebel_module_groups: []
-repo_description: ""
-repo_name: ""
+repo_description: ''
+repo_name: ''
 repo_slug: archive-management
 repo_website: https://github.com/tegin/archive-management
 use_pyproject_toml: false
 use_ruff: false
+
