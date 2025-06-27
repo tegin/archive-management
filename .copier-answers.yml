@@ -21,6 +21,6 @@ repo_description: ''
 repo_name: ''
 repo_slug: archive-management
 repo_website: https://github.com/tegin/archive-management
-use_pyproject_toml: false
+use_pyproject_toml: true
 use_ruff: false
 
